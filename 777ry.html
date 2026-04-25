@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>Royal 777 Casino</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--gold:#f0d060;--or:#e8a020;--dk:#07070e;--pn:#0f0f1c;--p2:#161628;--bd:#1e1e32;--gb:#8b6914;--gn:#3ddc84;--rd:#ff4757;--bl:#4e8ef7;--cy:#00d2ff}
+html,body{height:100%;overflow:hidden}
+body{background:var(--dk);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gold);font-size:14px;display:flex;flex-direction:column}
+input,button{font-family:inherit}
+
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twk var(--d) infinite alternate}
+@keyframes twk{from{opacity:.05}to{opacity:.7}}
+
+/* AUTH */
+#authScreen{position:fixed;inset:0;background:rgba(7,7,14,.98);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px}
+.abox{background:var(--pn);border:1px solid var(--gb);border-radius:20px;padding:28px 22px;width:100%;max-width:340px}
+.alogo{text-align:center;font-size:32px;font-weight:900;letter-spacing:4px;margin-bottom:2px;text-shadow:0 0 30px rgba(232,160,32,.4)}
+.alogo span{color:var(--or)}
+.asub{text-align:center;font-size:10px;color:var(--gb);letter-spacing:3px;margin-bottom:22px;text-transform:uppercase}
+.atabs{display:flex;border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:18px}
+.atab{flex:1;padding:9px;font-size:12px;font-weight:700;text-align:center;cursor:pointer;color:#444;transition:all .2s;text-transform:uppercase;letter-spacing:1px}
+.atab.on{background:linear-gradient(135deg,#8b6914,#e8a020);color:#000}
+.af{margin-bottom:11px}
+.af label{display:block;font-size:9px;letter-spacing:2px;color:var(--gb);margin-bottom:4px;text-transform:uppercase}
+.af input{width:100%;padding:10px 12px;background:#0b0b18;border:1px solid var(--bd);border-radius:8px;color:var(--gold);font-size:14px;outline:none;-webkit-appearance:none;transition:border-color .2s}
+.af input:focus{border-color:var(--gb)}
+.abtn{width:100%;padding:12px;font-size:13px;font-weight:700;letter-spacing:2px;background:linear-gradient(135deg,#1a0e00,#2a1800);border:2px solid var(--or);border-radius:10px;color:var(--gold);margin-top:6px;text-transform:uppercase;transition:all .2s}
+.abtn:active{transform:scale(.98)}
+.aerr{color:var(--rd);font-size:11px;text-align:center;margin-top:8px;min-height:16px}
+
+/* TOPBAR */
+.topbar{background:linear-gradient(180deg,#12121f,var(--pn));border-bottom:1px solid var(--gb);padding:7px 12px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10;flex-shrink:0}
+.logo{font-size:17px;font-weight:900;letter-spacing:3px;text-shadow:0 0 15px rgba(232,160,32,.3)}
+.logo span{color:var(--or)}
+.tr{display:flex;align-items:center;gap:6px}
+.wallet{background:rgba(139,105,20,.12);border:1px solid var(--gb);border-radius:8px;padding:4px 9px;display:flex;align-items:center;gap:5px}
+.wi{width:15px;height:15px;background:linear-gradient(135deg,var(--or),var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#000;font-weight:900;flex-shrink:0}
+.wa{font-size:12px;font-weight:700;min-width:55px;text-align:right}
+.nbwrap{display:flex;align-items:center;gap:4px}
+.nick-txt{font-size:10px;color:var(--gb);max-width:65px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rbadge{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+.rb-gold{background:linear-gradient(135deg,#8b6914,#f0d060);color:#000}
+.rb-silver{background:linear-gradient(135deg,#555,#aaa);color:#000}
+.rb-bronze{background:linear-gradient(135deg,#7a4a1e,#cd7f32);color:#000}
+.tb-btn{padding:4px 8px;font-size:9px;font-weight:700;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:5px;color:#444;text-transform:uppercase;transition:color .15s}
+.tb-btn:active{color:var(--gold)}
+
+/* NAV */
+.nav{background:var(--pn);border-bottom:1px solid var(--bd);display:flex;overflow-x:auto;scrollbar-width:none;flex-shrink:0;z-index:10}
+.nav::-webkit-scrollbar{display:none}
+.nb{padding:9px 11px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#333;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:all .2s}
+.nb.on{color:var(--gold);border-bottom-color:var(--or)}
+
+/* CONTENT */
+#appContent{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;z-index:1;-webkit-overflow-scrolling:touch}
+.page{display:none;padding:10px}
+.page.on{display:block}
+.stitle{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gb);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--gb),transparent)}
+
+/* CARD */
+.card{background:var(--pn);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(232,160,32,.2),transparent)}
+.card.gold-c{border-color:var(--gb)}
+.card.vip-c{border-color:var(--or);box-shadow:0 0 24px rgba(232,160,32,.06)}
+
+/* SLOT */
+.mhead{text-align:center;margin-bottom:12px}
+.mname{font-size:15px;font-weight:800;letter-spacing:1px}
+.msub{font-size:10px;color:var(--gb);margin-top:3px}
+.jpdisp{background:linear-gradient(135deg,#1a0800,#2a1200);border:1px solid var(--or);border-radius:6px;padding:4px 14px;margin:6px auto;display:inline-block;font-size:12px;font-weight:700;color:var(--or);animation:jpglow 2s ease-in-out infinite alternate}
+@keyframes jpglow{from{box-shadow:0 0 6px rgba(255,71,87,.3)}to{box-shadow:0 0 18px rgba(255,71,87,.7)}}
+.reels3{display:flex;gap:6px;justify-content:center;margin-bottom:8px}
+.reel{flex:1;max-width:88px;height:78px;background:linear-gradient(180deg,#07070f,#0d0d1a);border:2px solid var(--bd);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.reel.win-reel{border-color:var(--or);box-shadow:0 0 14px rgba(232,160,32,.5)}
+@keyframes rroll{0%{transform:translateY(0)}33%{transform:translateY(-10px)}66%{transform:translateY(8px)}100%{transform:translateY(0)}}
+.reel.spinning{animation:rroll .09s linear infinite}
+.reels9{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
+.r9{height:60px;background:linear-gradient(180deg,#07070f,#0d0d1a);border:2px solid var(--bd);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;transition:all .2s}
+.r9.win-reel{border-color:var(--or);box-shadow:0 0 10px rgba(232,160,32,.5)}
+.r9.spinning{animation:rroll .09s linear infinite}
+.payline{width:100%;height:2px;background:linear-gradient(to right,transparent,var(--or),transparent);opacity:0;margin-bottom:8px;transition:opacity .3s}
+.payline.show{opacity:1;box-shadow:0 0 8px var(--or)}
+.bet-lbl{font-size:9px;letter-spacing:1.5px;color:var(--gb);margin-bottom:5px;text-transform:uppercase}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.chip{min-width:38px;height:36px;border-radius:18px;border:2px dashed #1a1a28;background:#0b0b16;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;cursor:pointer;color:#333;transition:all .15s;padding:0 7px}
+.chip.on{border-color:var(--or)!important;background:rgba(232,160,32,.1);color:var(--gold)}
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--bd),transparent);margin:8px 0}
+.sbtn{width:100%;padding:12px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#1a0e00,#251500);border:2px solid var(--or);border-radius:10px;color:var(--gold);transition:all .2s}
+.sbtn:active:not(:disabled){transform:scale(.98)}
+.sbtn:disabled{opacity:.3;cursor:default}
+.rbanner{text-align:center;min-height:20px;font-size:13px;font-weight:700;padding:3px 0;margin-top:6px}
+.w{color:var(--gn)}.l{color:#2a2a3a}.bw{color:var(--or)}.jp{color:var(--rd);animation:pulse .4s infinite alternate}
+@keyframes pulse{from{opacity:1}to{opacity:.3}}
+.locked-m{background:rgba(13,13,22,.8);border:1px dashed var(--bd);border-radius:14px;padding:16px;text-align:center;margin-bottom:10px}
+.locked-m .li{font-size:28px;margin-bottom:5px;filter:grayscale(1);opacity:.25}
+.locked-m .ln{font-size:13px;font-weight:700;color:#1e1e2e;letter-spacing:1px}
+.locked-m .lp{font-size:11px;color:#14142a;margin:3px 0 8px}
+.gbtn{padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:1px;background:rgba(139,105,20,.08);border:1px solid var(--gb);border-radius:6px;color:var(--or);text-transform:uppercase}
+.lucky-bar{background:linear-gradient(135deg,rgba(26,14,0,.9),rgba(42,24,0,.9));border:1px solid var(--gb);border-radius:8px;padding:6px 12px;font-size:11px;color:var(--or);letter-spacing:1px;margin-bottom:10px;text-align:center;display:none}
+.lucky-bar.show{display:block}
+
+/* GAMBLE */
+.back-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.back-btn{display:flex;align-items:center;gap:4px;padding:6px 11px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--p2);border:1px solid var(--bd);border-radius:7px;color:#444;transition:all .15s}
+.back-btn:active{border-color:var(--gb);color:var(--gold)}
+.ptitle{font-size:13px;font-weight:700;color:var(--gold)}
+.tcards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.gcard{background:var(--pn);border:1px solid var(--bd);border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.gcard:active:not(.lc){border-color:var(--gb);transform:scale(.98)}
+.gcard.lc{opacity:.3;cursor:default}
+.gcard.new::after{content:'NEW';position:absolute;top:6px;right:6px;font-size:8px;font-weight:700;background:var(--rd);color:#fff;padding:1px 5px;border-radius:3px}
+.gi{font-size:26px;margin-bottom:5px}
+.gname{font-size:12px;font-weight:700;color:var(--gold)}
+.godds{font-size:9px;color:var(--gb);margin:2px 0 6px}
+.pbtn{padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:1px;background:#0a0a14;border:1px solid #1a1a28;border-radius:5px;color:#444;text-transform:uppercase}
+.irow{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.irow label{font-size:9px;color:var(--gb);letter-spacing:1px;text-transform:uppercase;flex:0 0 40px}
+.irow input{flex:1;padding:8px 10px;font-size:13px;background:#0a0a14;border:1px solid var(--bd);border-radius:7px;color:var(--gold);-webkit-appearance:none;outline:none}
+.irow input:focus{border-color:var(--gb)}
+.crow{display:flex;gap:6px;margin-bottom:10px}
+.cbtn{flex:1;padding:10px 4px;font-size:11px;font-weight:700;background:#0b0b18;border:1px solid var(--bd);border-radius:8px;color:#555;text-transform:uppercase;transition:all .15s}
+.cbtn:active{border-color:var(--or);color:var(--gold);background:rgba(232,160,32,.08)}
+.rbox{background:#08080f;border:1px solid var(--bd);border-radius:8px;padding:10px;min-height:44px;text-align:center;font-size:13px;color:#333}
+
+/* BLACKJACK */
+.bj-table{background:radial-gradient(ellipse at center,#0e2a0e,#071507);border:2px solid #1a3a1a;border-radius:14px;padding:12px;margin-bottom:8px}
+.bj-zlbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#3a7a3a;margin-bottom:5px}
+.bj-crow{display:flex;gap:4px;flex-wrap:wrap;min-height:60px;align-items:center}
+.bjcard{width:40px;height:56px;background:linear-gradient(135deg,#f5f0e8,#ede8d8);border:1px solid #ccc;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#111;flex-shrink:0;box-shadow:2px 3px 6px rgba(0,0,0,.5);animation:deal .22s ease-out;position:relative}
+@keyframes deal{from{transform:translateY(-20px) rotate(-8deg) scale(.8);opacity:0}to{transform:none;opacity:1}}
+.bjcard.red{color:#cc2222}
+.bjcard.hid{background:linear-gradient(135deg,#1a2a4a,#0f1e38)!important}
+.bjcard.hid::after{content:'🂠';color:#4a6a9a;font-size:20px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.bj-sc{font-size:11px;color:#4a8a4a;margin-top:3px}
+.dmsg{font-size:11px;color:var(--gb);text-align:center;min-height:18px;font-style:italic;margin:4px 0}
+/* AI player cards */
+.ai-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px}
+.aip{background:rgba(255,255,255,.02);border:1px solid var(--bd);border-radius:8px;padding:8px;transition:border-color .3s}
+.aip.thinking{border-color:var(--or);animation:aipulse 1s ease-in-out infinite alternate}
+@keyframes aipulse{from{box-shadow:none}to{box-shadow:0 0 8px rgba(232,160,32,.3)}}
+.aip.bust{border-color:var(--rd)}
+.aip.stand{border-color:var(--bl)}
+.aip.bjwin{border-color:var(--gn)}
+.ainame{font-size:9px;font-weight:700;color:#2a2a3a;margin-bottom:3px;text-transform:uppercase}
+.aimsg{font-size:9px;color:var(--gb);font-style:italic;min-height:12px;margin-bottom:3px}
+.aicrow{display:flex;gap:3px;flex-wrap:wrap;min-height:40px;align-items:center}
+.aic{width:30px;height:42px;background:linear-gradient(135deg,#f5f0e8,#ede8d8);border:1px solid #bbb;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#111;box-shadow:1px 2px 4px rgba(0,0,0,.4);animation:deal .2s ease-out;flex-shrink:0;position:relative}
+.aic.red{color:#cc2222}
+.aic.hid{background:linear-gradient(135deg,#1a2a4a,#0f1e38)!important}
+.aic.hid::after{content:'🂠';color:#4a6a9a;font-size:12px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.aisc{font-size:9px;color:#333;margin-top:2px}
+.aist{font-size:8px;font-weight:700;text-transform:uppercase;margin-top:2px;letter-spacing:.5px}
+.aist.st{color:var(--bl)}.aist.bu{color:var(--rd)}.aist.bj2{color:var(--or)}
+.bj-actions{display:flex;gap:5px;margin-bottom:8px}
+.bjbtn{flex:1;padding:9px;font-size:11px;font-weight:700;background:#0b0b18;border:1px solid var(--bd);border-radius:7px;color:#444;text-transform:uppercase;transition:all .2s}
+.bjbtn:active:not(:disabled){border-color:var(--or);color:var(--gold)}
+.bjbtn:disabled{opacity:.2;cursor:default}
+
+/* ROULETTE */
+#rlCanvas{border-radius:50%;display:block;margin:0 auto;box-shadow:0 0 30px rgba(232,160,32,.25)}
+.rl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:8px 0}
+.rlbtn{padding:8px 3px;font-size:10px;font-weight:700;background:#0b0b18;border:1px solid var(--bd);border-radius:6px;color:#444;text-transform:uppercase;transition:all .15s}
+.rlbtn:active:not(:disabled){border-color:var(--or);color:var(--gold)}
+.rlbtn:disabled{opacity:.4;cursor:default}
+.rlbtn.rd{color:#dd4444;border-color:#3a1818}
+.rlbtn.bk{color:#aaa;border-color:#282828}
+
+/* PLINKO */
+#plinkoCanvas{display:block;margin:0 auto;border-radius:10px;background:#0a0a14}
+
+/* SHELL — fixed no-overlap */
+#shellWrap{position:relative;height:180px;margin:8px 0;overflow:visible}
+.cup{position:absolute;bottom:0;width:72px;height:90px;transition:left .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);cursor:default}
+.cup svg{width:100%;height:100%;display:block}
+.sball{position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff8080,#cc0000);box-shadow:0 3px 10px rgba(0,0,0,.7);bottom:2px;left:26px;display:none;z-index:2}
+
+/* SHOP */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.si{background:var(--pn);border:1px solid var(--bd);border-radius:12px;padding:12px;position:relative;overflow:hidden}
+.si.owned{border-color:var(--gb);background:rgba(139,105,20,.05)}
+.si.feat{border:2px solid var(--or);grid-column:1/-1;background:rgba(232,160,32,.03)}
+.sico{font-size:22px;margin-bottom:5px}
+.sname{font-size:12px;font-weight:700;color:var(--gold)}
+.sdesc{font-size:10px;color:#2a2a3a;margin:3px 0 6px;line-height:1.5}
+.sprice{font-size:11px;color:var(--gb);margin-bottom:6px;font-weight:700}
+.sbuy2{width:100%;padding:7px;font-size:10px;font-weight:700;letter-spacing:1px;background:linear-gradient(135deg,#1a0e00,#221400);border:1px solid var(--gb);border-radius:6px;color:var(--or);text-transform:uppercase}
+.sbuy2:disabled{opacity:.3;cursor:default}
+.owned-tag{width:100%;padding:7px;font-size:10px;font-weight:700;letter-spacing:1px;background:rgba(139,105,20,.08);border:1px solid var(--gb);border-radius:6px;color:var(--gb);text-align:center;text-transform:uppercase}
+
+/* RANK */
+.rlist{background:var(--pn);border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.rrow{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid var(--bd)}
+.rrow:last-child{border-bottom:none}
+.rrow.me-row{background:rgba(139,105,20,.07)}
+.rnum{width:24px;font-size:13px;font-weight:700;text-align:center;flex-shrink:0}
+.rnick{flex:1;font-size:12px;font-weight:600;color:var(--gold)}
+.rval{font-size:12px;font-weight:700;color:var(--or)}
+.rempty{padding:22px;text-align:center;font-size:11px;color:#1a1a28;letter-spacing:1px;text-transform:uppercase}
+
+/* HISTORY */
+.sgrid2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.sbox{background:var(--pn);border:1px solid var(--bd);border-radius:10px;padding:10px}
+.slbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#1e1e2e;margin-bottom:4px}
+.sval{font-size:19px;font-weight:700;color:var(--gold)}
+.hlist{background:var(--pn);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.hrow{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--bd);font-size:11px}
+.hrow:last-child{border-bottom:none}
+.htype{color:#2a2a3a}
+.hamt.pos{color:var(--gn);font-weight:700}
+.hamt.neg{color:var(--rd);font-weight:700}
+.hempty{padding:20px;text-align:center;font-size:11px;color:#141422;letter-spacing:1px;text-transform:uppercase}
+.rstbtn{width:100%;padding:10px;font-size:11px;font-weight:700;letter-spacing:1.5px;background:#0a0006;border:1px solid #551122;border-radius:8px;color:#883344;text-transform:uppercase}
+
+/* HOUSE */
+.house-area{min-height:180px;border-radius:14px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;border:2px solid var(--bd);transition:all .5s}
+.house-name{font-size:18px;font-weight:700;margin-bottom:4px;text-shadow:0 2px 10px rgba(0,0,0,.8);text-align:center}
+.house-sub{font-size:11px;color:var(--gb);text-align:center}
+.bgm-box{background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px}
+.bgm-row{display:flex;align-items:center;gap:6px;margin-top:8px}
+.bgm-input{flex:1;padding:7px 10px;font-size:12px;background:#0a0a14;border:1px solid var(--bd);border-radius:7px;color:var(--gold);outline:none;-webkit-appearance:none}
+.bgm-btn{padding:7px 12px;font-size:10px;font-weight:700;background:linear-gradient(135deg,#1a0e00,#221400);border:1px solid var(--gb);border-radius:6px;color:var(--or);text-transform:uppercase;flex-shrink:0}
+#ytAudio{width:1px;height:1px;position:absolute;opacity:0;pointer-events:none}
+
+/* ADMIN */
+.adpanel{background:rgba(8,8,26,.9);border:2px solid var(--bl);border-radius:12px;padding:14px;margin-bottom:10px}
+.adtitle{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--bl);text-transform:uppercase;margin-bottom:9px}
+.adrow{display:flex;gap:6px;margin-bottom:7px;align-items:center}
+.adrow input{flex:1;padding:7px 10px;font-size:12px;background:#0a0a18;border:1px solid #1a1a30;border-radius:6px;color:var(--gold);outline:none;-webkit-appearance:none}
+.adbtn{padding:7px 12px;font-size:10px;font-weight:700;letter-spacing:1px;background:#08082a;border:1px solid var(--bl);border-radius:6px;color:var(--bl);text-transform:uppercase;white-space:nowrap}
+.adlog{background:#04040e;border:1px solid #1a1a30;border-radius:7px;padding:8px 10px;font-size:9px;color:#334;letter-spacing:.5px;line-height:1.9;max-height:100px;overflow-y:auto;margin-top:6px}
+
+/* TOAST */
+#toast{position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:var(--p2);border:1px solid var(--gb);border-radius:10px;padding:7px 18px;font-size:12px;color:var(--gold);pointer-events:none;opacity:0;transition:opacity .25s;z-index:9999;white-space:nowrap;max-width:90vw;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.6)}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+
+<!-- AUTH -->
+<div id="authScreen">
+  <div class="abox">
+    <div class="alogo">Royal<span>777</span></div>
+    <div class="asub">Las Vegas Grand Casino</div>
+    <div class="atabs">
+      <div class="atab on" id="tabL" onclick="swTab('L')">로그인</div>
+      <div class="atab" id="tabS" onclick="swTab('S')">회원가입</div>
+    </div>
+    <div id="fL">
+      <div class="af"><label>아이디</label><input id="lId" type="text" placeholder="아이디" autocomplete="username"/></div>
+      <div class="af"><label>비밀번호</label><input id="lPw" type="password" placeholder="비밀번호" autocomplete="current-password"/></div>
+      <button class="abtn" onclick="doLogin()">🎰 입장하기</button>
+    </div>
+    <div id="fS" style="display:none">
+      <div class="af"><label>아이디</label><input id="sId" type="text" placeholder="영문/숫자 4-12자" autocomplete="username"/></div>
+      <div class="af"><label>닉네임</label><input id="sNk" type="text" placeholder="닉네임 2-10자"/></div>
+      <div class="af"><label>비밀번호</label><input id="sPw" type="password" placeholder="4자 이상" autocomplete="new-password"/></div>
+      <button class="abtn" onclick="doSignup()">✨ 가입하기</button>
+    </div>
+    <div class="aerr" id="authErr"></div>
+  </div>
+</div>
+
+<!-- GAME APP -->
+<div id="gameApp" style="display:none;flex-direction:column;height:100%">
+<div class="topbar">
+  <div class="logo">Royal<span>777</span></div>
+  <div class="tr">
+    <div class="nbwrap">
+      <div class="nick-txt" id="dispNick"></div>
+      <div id="rankBadge"></div>
+    </div>
+    <div class="wallet"><div class="wi">G</div><div class="wa" id="walletAmt">0</div></div>
+    <div class="tb-btn" onclick="doLogout()">OUT</div>
+  </div>
+</div>
+<div class="nav">
+  <button class="nb on" onclick="goPage('slot',this)">슬롯</button>
+  <button class="nb" onclick="goPage('gamble',this)">겜블</button>
+  <button class="nb" onclick="goPage('shop',this)">상점</button>
+  <button class="nb" onclick="goPage('rank',this)">랭킹</button>
+  <button class="nb" onclick="goPage('house',this)">내 집</button>
+  <button class="nb" onclick="goPage('history',this)">기록</button>
+  <button class="nb" id="adminBtn" style="display:none;color:var(--bl)" onclick="goPage('admin',this)">관리자</button>
+</div>
+<div id="appContent">
+
+<!-- SLOT -->
+<div class="page on" id="page-slot">
+  <div class="lucky-bar" id="luckyBar">★ LUCKY BOOST — 남은 스핀: <span id="luckyCount">0</span></div>
+  <div class="stitle">슬롯 머신</div>
+  <div class="card" id="m1w">
+    <div class="mhead"><div class="mname">🎰 Classic 777</div><div class="msub">승률 42% · 3릴 · 최대 10×</div></div>
+    <div class="reels3"><div class="reel" id="r1_0">7️⃣</div><div class="reel" id="r1_1">🍒</div><div class="reel" id="r1_2">💎</div></div>
+    <div class="payline" id="pl1"></div>
+    <div class="bet-lbl">베팅</div>
+    <div class="chips">
+      <div class="chip on" onclick="setBet(1,10,this)">10</div>
+      <div class="chip" onclick="setBet(1,50,this)">50</div>
+      <div class="chip" onclick="setBet(1,100,this)">100</div>
+      <div class="chip" onclick="setBet(1,500,this)">500</div>
+    </div>
+    <div class="divider"></div>
+    <button class="sbtn" id="spn1" onclick="doSpin(1)">▶ SPIN — <span id="bd1">10</span> G</button>
+    <div class="rbanner" id="res1"></div>
+  </div>
+  <div class="card">
+    <div class="mhead"><div class="mname" style="color:var(--cy)">🎲 Matrix 9 슬롯</div><div class="msub">3×3 · 8라인 · 승률 40% · 최대 15×</div></div>
+    <div class="reels9" id="reels9">
+      <div class="r9" id="r9_0">7️⃣</div><div class="r9" id="r9_1">🍒</div><div class="r9" id="r9_2">💎</div>
+      <div class="r9" id="r9_3">⭐</div><div class="r9" id="r9_4">🔔</div><div class="r9" id="r9_5">🍀</div>
+      <div class="r9" id="r9_6">🎯</div><div class="r9" id="r9_7">👑</div><div class="r9" id="r9_8">🌟</div>
+    </div>
+    <div class="bet-lbl">베팅</div>
+    <div class="chips">
+      <div class="chip on" onclick="setB9(50,this)">50</div>
+      <div class="chip" onclick="setB9(100,this)">100</div>
+      <div class="chip" onclick="setB9(300,this)">300</div>
+      <div class="chip" onclick="setB9(1000,this)">1K</div>
+    </div>
+    <div class="divider"></div>
+    <button class="sbtn" id="spn9" onclick="doSpin9()" style="border-color:var(--cy);color:var(--cy)">▶ 9-SPIN — <span id="bd9">50</span> G</button>
+    <div class="rbanner" id="res9"></div>
+  </div>
+  <div id="goldMachine" style="display:none">
+    <div class="card gold-c">
+      <div class="mhead"><div class="mname" style="color:var(--or)">⭐ Gold Rush</div><div class="msub">승률 45% · 골드 7🔱 · 최대 20×</div></div>
+      <div class="reels3"><div class="reel" id="r2_0">💛</div><div class="reel" id="r2_1">🔱</div><div class="reel" id="r2_2">💛</div></div>
+      <div class="payline" id="pl2"></div>
+      <div class="bet-lbl">베팅</div>
+      <div class="chips">
+        <div class="chip on" onclick="setBet(2,50,this)">50</div>
+        <div class="chip" onclick="setBet(2,200,this)">200</div>
+        <div class="chip" onclick="setBet(2,500,this)">500</div>
+        <div class="chip" onclick="setBet(2,2000,this)">2K</div>
+      </div>
+      <div class="divider"></div>
+      <button class="sbtn" id="spn2" onclick="doSpin(2)" style="border-color:var(--gb);color:var(--or)">★ GOLD SPIN — <span id="bd2">50</span> G</button>
+      <div class="rbanner" id="res2"></div>
+    </div>
+  </div>
+  <div id="vipMachine" style="display:none">
+    <div class="card vip-c">
+      <div class="mhead">
+        <div style="display:inline-block;background:linear-gradient(135deg,#1a0800,#2a1000);border:1px solid var(--or);border-radius:4px;padding:2px 8px;font-size:9px;letter-spacing:2px;color:var(--or);margin-bottom:5px">◆ VIP ◆</div>
+        <div class="mname" style="color:var(--or)">💎 Diamond Elite</div>
+        <div class="msub">승률 48% · 다이아7💠 · 최대 50× · JACKPOT</div>
+        <div class="jpdisp">JACKPOT 🎰 <span id="jpAmt">50,000</span> G</div>
+      </div>
+      <div class="reels3"><div class="reel" id="r3_0" style="border-color:var(--gb)">👑</div><div class="reel" id="r3_1" style="border-color:var(--gb)">💠</div><div class="reel" id="r3_2" style="border-color:var(--gb)">👑</div></div>
+      <div class="payline" id="pl3"></div>
+      <div class="bet-lbl">베팅</div>
+      <div class="chips">
+        <div class="chip on" onclick="setBet(3,1000,this)">1K</div>
+        <div class="chip" onclick="setBet(3,5000,this)">5K</div>
+        <div class="chip" onclick="setBet(3,10000,this)">10K</div>
+        <div class="chip" onclick="setBet(3,50000,this)">50K</div>
+      </div>
+      <div class="divider"></div>
+      <button class="sbtn" id="spn3" onclick="doSpin(3)" style="border-color:var(--or);background:linear-gradient(135deg,#1a0800,#251000)">◆ VIP SPIN — <span id="bd3">1,000</span> G</button>
+      <div class="rbanner" id="res3"></div>
+    </div>
+  </div>
+  <div id="goldLocked" class="locked-m"><div class="li">⭐</div><div class="ln">Gold Rush</div><div class="lp">2,000 G</div><button class="gbtn" onclick="goPage('shop',document.querySelectorAll('.nb')[2])">상점 이동</button></div>
+  <div id="vipLocked" class="locked-m"><div class="li">💎</div><div class="ln">Diamond Elite</div><div class="lp">20,000 G</div><button class="gbtn" onclick="goPage('shop',document.querySelectorAll('.nb')[2])">상점 이동</button></div>
+</div>
+
+<!-- GAMBLE -->
+<div class="page" id="page-gamble">
+  <div id="tableView">
+    <div class="stitle">겜블 테이블</div>
+    <div class="tcards">
+      <div class="gcard" onclick="openGame('coin')"><div class="gi">🪙</div><div class="gname">동전 던지기</div><div class="godds">앞/뒤 · 1.9×</div><button class="pbtn">플레이</button></div>
+      <div class="gcard" onclick="openGame('dice')"><div class="gi">🎲</div><div class="gname">주사위 하이로</div><div class="godds">고/저 · 1.8×</div><button class="pbtn">플레이</button></div>
+      <div class="gcard new" onclick="openGame('plinko')"><div class="gi">🎯</div><div class="gname">플링코</div><div class="godds">물리 낙하 · 최대 10×</div><button class="pbtn">플레이</button></div>
+      <div class="gcard new" onclick="openGame('shell')"><div class="gi">🎪</div><div class="gname">야바위</div><div class="godds">컵 선택 · 3×</div><button class="pbtn">플레이</button></div>
+      <div class="gcard lc" id="bjCard"><div class="gi">🃏</div><div class="gname">블랙잭 AI</div><div class="godds">2× · 블랙잭 2.5×</div><button class="pbtn" onclick="openGame('bj')">플레이</button></div>
+      <div class="gcard lc" id="rlCard"><div class="gi">🎡</div><div class="gname">룰렛</div><div class="godds">최대 35× · 회전 애니</div><button class="pbtn" onclick="openGame('rl')">플레이</button></div>
+    </div>
+  </div>
+  <div id="gameView" style="display:none">
+    <div class="back-bar">
+      <button class="back-btn" onclick="closeGame()">← 뒤로</button>
+      <span class="ptitle" id="ptitle"></span>
+    </div>
+    <!-- COIN -->
+    <div class="card" id="coinPanel" style="display:none">
+      <div class="irow"><label>베팅</label><input type="number" id="coinBet" value="100" min="10" step="10"/></div>
+      <canvas id="coinCanvas" width="300" height="120" style="width:100%;border-radius:8px;background:#0a0a14;display:block"></canvas>
+      <div class="crow" style="margin-top:8px">
+        <button class="cbtn" id="coinBtnH" onclick="playCoin('h')">🪙 앞면 (H)</button>
+        <button class="cbtn" id="coinBtnT" onclick="playCoin('t')">🪙 뒷면 (T)</button>
+      </div>
+      <div class="rbox" id="coinRes">앞면 또는 뒷면을 선택하세요</div>
+    </div>
+    <!-- DICE -->
+    <div class="card" id="dicePanel" style="display:none">
+      <div class="irow"><label>베팅</label><input type="number" id="diceBet" value="100" min="10" step="10"/></div>
+      <canvas id="diceCanvas" width="300" height="140" style="width:100%;border-radius:8px;background:#0a0a14;display:block"></canvas>
+      <div class="crow" style="margin-top:8px">
+        <button class="cbtn" id="diceH" onclick="playDice('h')">🔼 4이상 (1.8×)</button>
+        <button class="cbtn" id="diceL" onclick="playDice('l')">🔽 3이하 (1.8×)</button>
+      </div>
+      <div class="rbox" id="diceRes">고 또는 저를 선택하세요</div>
+    </div>
+    <!-- PLINKO -->
+    <div class="card" id="plinkoPanel" style="display:none">
+      <div class="irow"><label>베팅</label><input type="number" id="plinkoBet" value="200" min="50" step="50"/></div>
+      <canvas id="plinkoCanvas" width="300" height="320" style="display:block;margin:0 auto"></canvas>
+      <button class="sbtn" id="plinkoBtn" onclick="dropPlinko()" style="margin-top:8px">🎯 공 낙하</button>
+      <div class="rbox" id="plinkoRes" style="margin-top:8px">공을 낙하시키세요</div>
+    </div>
+    <!-- SHELL -->
+    <div class="card" id="shellPanel" style="display:none">
+      <div class="irow"><label>베팅</label><input type="number" id="shellBet" value="300" min="50" step="50"/></div>
+      <div id="shellWrap">
+        <div class="cup" id="cup0">
+          <svg viewBox="0 0 72 90"><defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c89830"/><stop offset="100%" stop-color="#7a5010"/></linearGradient></defs><path d="M6 8 L66 8 L58 82 L14 82 Z" fill="url(#cg)"/><ellipse cx="36" cy="8" rx="30" ry="8" fill="#d4a840"/><path d="M6 8 L66 8 L58 82 L14 82 Z" fill="none" stroke="#e8c040" stroke-width="1.5"/></svg>
+          <div class="sball" id="ball0"></div>
+        </div>
+        <div class="cup" id="cup1">
+          <svg viewBox="0 0 72 90"><path d="M6 8 L66 8 L58 82 L14 82 Z" fill="url(#cg)"/><ellipse cx="36" cy="8" rx="30" ry="8" fill="#d4a840"/><path d="M6 8 L66 8 L58 82 L14 82 Z" fill="none" stroke="#e8c040" stroke-width="1.5"/></svg>
+          <div class="sball" id="ball1"></div>
+        </div>
+        <div class="cup" id="cup2">
+          <svg viewBox="0 0 72 90"><path d="M6 8 L66 8 L58 82 L14 82 Z" fill="url(#cg)"/><ellipse cx="36" cy="8" rx="30" ry="8" fill="#d4a840"/><path d="M6 8 L66 8 L58 82 L14 82 Z" fill="none" stroke="#e8c040" stroke-width="1.5"/></svg>
+          <div class="sball" id="ball2"></div>
+        </div>
+      </div>
+      <div class="crow">
+        <button class="cbtn" id="sb0" onclick="pickShell(0)">컵 1</button>
+        <button class="cbtn" id="sb1" onclick="pickShell(1)">컵 2</button>
+        <button class="cbtn" id="sb2" onclick="pickShell(2)">컵 3</button>
+      </div>
+      <div class="rbox" id="shellRes">공이 숨겨진 컵을 고르세요</div>
+    </div>
+    <!-- BLACKJACK 2P -->
+    <div id="bj2Panel" style="display:none">
+      <div class="card">
+        <div style="text-align:center;margin-bottom:8px;font-size:11px;color:var(--gb);letter-spacing:1px">👥 2인 블랙잭 — 교대로 플레이</div>
+        <div class="bj-table">
+          <div class="dmsg" id="bj2Msg">베팅 후 딜 버튼을 누르세요</div>
+          <div class="bj-zlbl">딜러</div>
+          <div class="bj-crow" id="bj2DC"></div>
+          <div class="bj-sc" id="bj2DS"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div class="bj-table" style="transition:opacity .3s" id="bj2z1">
+            <div class="bj-zlbl" style="color:#4e8ef7">🔵 플레이어 1</div>
+            <div class="bj-crow" id="bj2P1C"></div>
+            <div class="bj-sc" id="bj2P1S"></div>
+          </div>
+          <div class="bj-table" style="transition:opacity .3s;opacity:.4" id="bj2z2">
+            <div class="bj-zlbl" style="color:#ff4757">🔴 플레이어 2</div>
+            <div class="bj-crow" id="bj2P2C"></div>
+            <div class="bj-sc" id="bj2P2S"></div>
+          </div>
+        </div>
+        <div id="bj2Banner" style="text-align:center;padding:6px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:8px;background:rgba(255,255,255,.03);border:1px solid var(--bd);color:var(--gb)">대기중</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div class="irow"><label>P1 베팅</label><input type="number" id="bj2Bet1" value="1000" min="100" step="100"/></div>
+          <div class="irow"><label>P2 베팅</label><input type="number" id="bj2Bet2" value="1000" min="100" step="100"/></div>
+        </div>
+        <div class="bj-actions">
+          <button class="bjbtn" id="bj2DealBtn" onclick="bj2Deal()">🎴 딜</button>
+          <button class="bjbtn" id="bj2HitBtn" onclick="bj2Hit()" disabled>히트</button>
+          <button class="bjbtn" id="bj2StandBtn" onclick="bj2Stand()" disabled>스탠드</button>
+        </div>
+        <div class="rbox" id="bj2Res">딜 버튼을 눌러 시작하세요</div>
+      </div>
+    </div>
+      <div class="card">
+        <div class="bj-table">
+          <div class="dmsg" id="bjMsg">베팅 후 딜 버튼을 누르세요</div>
+          <div class="bj-zlbl">딜러</div>
+          <div class="bj-crow" id="bjDC"></div>
+          <div class="bj-sc" id="bjDS"></div>
+        </div>
+        <div class="ai-grid" id="aiGrid"></div>
+        <div class="bj-table">
+          <div class="bj-zlbl">나의 패</div>
+          <div class="bj-crow" id="bjPC"></div>
+          <div class="bj-sc" id="bjPS"></div>
+        </div>
+        <div class="irow" style="margin-top:10px"><label>베팅</label><input type="number" id="bjBet" value="100000" min="1000" step="1000"/></div>
+        <div class="bj-actions">
+          <button class="bjbtn" id="bjDeal" onclick="bjDeal()">🎴 딜</button>
+          <button class="bjbtn" id="bjHit" onclick="bjHit()" disabled>히트</button>
+          <button class="bjbtn" id="bjStand" onclick="bjStand()" disabled>스탠드</button>
+        </div>
+        <div class="rbox" id="bjRes">딜 버튼을 눌러 시작하세요</div>
+      </div>
+    </div>
+    <!-- ROULETTE -->
+    <div class="card" id="rlPanel" style="display:none">
+      <div class="irow"><label>베팅</label><input type="number" id="rlBet" value="500" min="50" step="50"/></div>
+      <canvas id="rlCanvas" width="260" height="260"></canvas>
+      <div class="rbox" id="rlRes" style="margin:8px 0">베팅 후 버튼을 누르세요</div>
+      <div class="rl-grid">
+        <button class="rlbtn rd" id="rbl0" onclick="playRl('red',2)">🔴 레드 2×</button>
+        <button class="rlbtn bk" id="rbl1" onclick="playRl('black',2)">⚫ 블랙 2×</button>
+        <button class="rlbtn" id="rbl2" onclick="playRl('odd',2)">홀수 2×</button>
+        <button class="rlbtn" id="rbl3" onclick="playRl('even',2)">짝수 2×</button>
+        <button class="rlbtn" id="rbl4" onclick="playRl('low',2)">1~18 2×</button>
+        <button class="rlbtn" id="rbl5" onclick="playRl('high',2)">19~36 2×</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="page" id="page-shop">
+  <div class="stitle">카지노 상점</div>
+  <div class="sgrid">
+    <div class="si owned"><div class="sico">🎰</div><div class="sname">Classic 777</div><div class="sdesc">기본 슬롯 승률 42%</div><div class="owned-tag">✓ 보유</div></div>
+    <div class="si" id="si-gold"><div class="sico">⭐</div><div class="sname">Gold Rush</div><div class="sdesc">승률 45% 최대 20× 골드7</div><div class="sprice">2,000 G</div><button class="sbuy2" onclick="buyItem('gold',2000)">구매</button></div>
+    <div class="si feat" id="si-vip"><div class="sico">💎</div><div class="sname">Diamond Elite VIP</div><div class="sdesc">승률 48% 최대 50× 다이아7 잭팟</div><div class="sprice">20,000 G</div><button class="sbuy2" onclick="buyItem('vip',20000)">구매</button></div>
+    <div class="si" id="si-bj"><div class="sico">🃏</div><div class="sname">블랙잭 해금</div><div class="sdesc">AI 4인 대전 블랙잭</div><div class="sprice">5,000 G</div><button class="sbuy2" onclick="buyItem('bj',5000)">구매</button></div>
+    <div class="si" id="si-rl"><div class="sico">🎡</div><div class="sname">룰렛 해금</div><div class="sdesc">회전 애니메이션 룰렛</div><div class="sprice">5,000 G</div><button class="sbuy2" onclick="buyItem('rl',5000)">구매</button></div>
+    <div class="si" id="si-lucky"><div class="sico">🍀</div><div class="sname">Lucky Boost ×10</div><div class="sdesc">다음 10스핀 배당 2배</div><div class="sprice">1,000 G</div><button class="sbuy2" onclick="buyItem('lucky',1000)">구매</button></div>
+    <div class="si" id="si-bg1"><div class="sico">🌃</div><div class="sname">Vegas Night 배경</div><div class="sdesc">집 배경 Vegas 야경</div><div class="sprice">3,000 G</div><button class="sbuy2" id="bg1b" onclick="buyItem('bg1',3000)">구매</button></div>
+    <div class="si" id="si-bg2"><div class="sico">🎆</div><div class="sname">Galaxy 배경</div><div class="sdesc">집 배경 우주 테마</div><div class="sprice">5,000 G</div><button class="sbuy2" id="bg2b" onclick="buyItem('bg2',5000)">구매</button></div>
+  </div>
+</div>
+
+<!-- RANK -->
+<div class="page" id="page-rank">
+  <div class="stitle">🏆 자산 랭킹 TOP 10</div>
+  <div class="rlist" id="rankG"></div>
+  <div class="stitle" style="margin-top:12px">📈 수익 랭킹 TOP 10</div>
+  <div class="rlist" id="rankP"></div>
+</div>
+
+<!-- HOUSE -->
+<div class="page" id="page-house">
+  <div class="stitle">내 집</div>
+  <div class="house-area" id="houseArea">
+    <div><div class="house-name" id="houseName">🏚 판잣집</div><div class="house-sub" id="houseSub">G를 모아 업그레이드!</div></div>
+  </div>
+  <div class="bgm-box">
+    <div class="stitle" style="margin-bottom:6px">🎵 배경음악</div>
+    <p style="font-size:10px;color:#555;margin-bottom:4px">YouTube URL을 입력하면 오디오만 추출해 재생합니다</p>
+    <div class="bgm-row">
+      <input class="bgm-input" id="ytUrl" placeholder="https://www.youtube.com/watch?v=..."/>
+      <button class="bgm-btn" onclick="playYT()">재생</button>
+      <button class="bgm-btn" onclick="stopYT()">정지</button>
+    </div>
+    <div id="ytStatus" style="font-size:10px;color:var(--gb);margin-top:6px;text-align:center"></div>
+    <!-- Hidden iframe for audio extraction -->
+    <iframe id="ytFrame" style="display:none" allow="autoplay"></iframe>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="page" id="page-history">
+  <div class="stitle">통계 & 기록</div>
+  <div class="sgrid2">
+    <div class="sbox"><div class="slbl">보유 자산</div><div class="sval" id="stMoney">0</div></div>
+    <div class="sbox"><div class="slbl">총 플레이</div><div class="sval" id="stPlays">0</div></div>
+    <div class="sbox"><div class="slbl">총 수익</div><div class="sval" id="stProfit">0</div></div>
+    <div class="sbox"><div class="slbl">최대 획득</div><div class="sval" id="stBig">0</div></div>
+  </div>
+  <div class="hlist" id="histList"><div class="hempty">기록 없음</div></div>
+  <button class="rstbtn" onclick="doReset()">🔄 자산 초기화 (1,000G · 아이템 유지)</button>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="stitle">관리자 패널</div>
+  <div class="adpanel">
+    <div class="adtitle">G 지급</div>
+    <div class="adrow"><input id="adU" placeholder="아이디"/><input id="adA" type="number" placeholder="수량" style="max-width:80px"/><button class="adbtn" onclick="adminGive()">지급</button></div>
+    <div class="adtitle" style="margin-top:10px">자산 초기화</div>
+    <div class="adrow"><input id="adRU" placeholder="아이디"/><button class="adbtn" onclick="adminReset()">초기화</button></div>
+    <div class="adtitle" style="margin-top:10px">닉네임 변경</div>
+    <div class="adrow">
+      <input id="adNU" placeholder="아이디" style="flex:1"/>
+      <input id="adNN" placeholder="새 닉네임" style="flex:1"/>
+      <button class="adbtn" onclick="adminNick()">변경</button>
+    </div>
+    <div class="adtitle" style="margin-top:10px">비밀번호 변경</div>
+    <div class="adrow">
+      <input id="adPU" placeholder="아이디" style="flex:1"/>
+      <input id="adPP" type="password" placeholder="새 비밀번호 (4자↑)" style="flex:1"/>
+      <button class="adbtn" onclick="adminPwd()">변경</button>
+    </div>
+    <div class="adlog" id="adminLog">로그 없음</div>
+  </div>
+</div>
+
+</div><!-- appContent -->
+</div><!-- gameApp -->
+<div id="toast"></div>
+
+<script>
+// ══ STARS ══
+(()=>{const s=document.getElementById('stars');for(let i=0;i<55;i++){const e=document.createElement('div');e.className='star';const z=Math.random()*2+1;e.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+2).toFixed(1)}s`;s.appendChild(e);}})();
+
+// ══ AUDIO ══
+let AC=null;
+function gAC(){if(!AC)try{AC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}return AC;}
+function beep(f,d,t='sine',v=.12){try{const a=gAC();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.type=t;o.frequency.setValueAtTime(f,a.currentTime);g.gain.setValueAtTime(v,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);o.start();o.stop(a.currentTime+d);}catch(e){}}
+const sfx={spin:()=>{beep(180,.06,'sawtooth',.07);setTimeout(()=>beep(200,.06,'sawtooth',.07),70);},tick:()=>beep(350,.04,'square',.04),win:()=>{beep(440,.1);setTimeout(()=>beep(554,.1),110);setTimeout(()=>beep(660,.18),220);},big:()=>[440,554,659,880,1108].forEach((f,i)=>setTimeout(()=>beep(f,.15,'sine',.2),i*90)),jp:()=>{for(let i=0;i<14;i++)setTimeout(()=>{beep(880+i*55,.1,'sine',.22);beep(440+i*27,.08,'sawtooth',.1);},i*110);},lose:()=>{beep(180,.12,'sawtooth',.07);setTimeout(()=>beep(140,.2,'sawtooth',.07),130);},buy:()=>{beep(660,.1);setTimeout(()=>beep(880,.15),120);},click:()=>beep(400,.04,'square',.05),card:()=>beep(620,.06,'square',.07),roll:()=>beep(300,.05,'sawtooth',.06)};
+
+// ══ STORAGE ══
+const UK='r777h_u',SP='r777h_s_',AK='r777h_al';
+const gu=()=>{try{return JSON.parse(localStorage.getItem(UK)||'{}')}catch{return{}}};
+const su=u=>{try{localStorage.setItem(UK,JSON.stringify(u))}catch(e){}};
+const gs=uid=>{try{const d=localStorage.getItem(SP+uid);return d?JSON.parse(d):null}catch{return null}};
+const ps2=(uid,d)=>{try{localStorage.setItem(SP+uid,JSON.stringify(d))}catch(e){}};
+const gal=()=>{try{return JSON.parse(localStorage.getItem(AK)||'[]')}catch{return[]}};
+const aal=m=>{const l=gal();l.unshift('['+new Date().toLocaleTimeString()+'] '+m);if(l.length>60)l.pop();try{localStorage.setItem(AK,JSON.stringify(l))}catch(e){}};
+(()=>{const u=gu();if(!u.admin){u.admin={pw:'admin1234',nick:'관리자',isAdmin:true};su(u);}})();
+
+// ══ AUTH ══
+let cUid=null,cUser=null;
+function swTab(t){['L','S'].forEach(x=>{document.getElementById('tab'+x).classList.toggle('on',x===t);document.getElementById('f'+x).style.display=x===t?'block':'none';});document.getElementById('authErr').textContent='';}
+function setErr(m){document.getElementById('authErr').textContent=m;}
+function doLogin(){
+  const id=document.getElementById('lId').value.trim(),pw=document.getElementById('lPw').value;
+  if(!id||!pw){setErr('아이디/비밀번호 입력');return;}
+  const u=gu();
+  if(!u[id]){setErr('존재하지 않는 아이디');return;}
+  if(u[id].pw!==pw){setErr('비밀번호 오류');return;}
+  cUid=id;cUser=u[id];startGame();
+}
+function doSignup(){
+  const id=document.getElementById('sId').value.trim(),nk=document.getElementById('sNk').value.trim(),pw=document.getElementById('sPw').value;
+  if(!id||!nk||!pw){setErr('모두 입력');return;}
+  if(!/^[a-zA-Z0-9]{4,12}$/.test(id)){setErr('아이디: 영문/숫자 4-12자');return;}
+  if(pw.length<4){setErr('비밀번호: 4자 이상');return;}
+  if(nk.length<2||nk.length>10){setErr('닉네임: 2-10자');return;}
+  const u=gu();if(u[id]){setErr('이미 사용중인 아이디');return;}
+  u[id]={pw,nick:nk,isAdmin:false};su(u);cUid=id;cUser=u[id];startGame();
+}
+function doLogout(){saveGame();cUid=null;cUser=null;document.getElementById('gameApp').style.display='none';document.getElementById('authScreen').style.display='flex';}
+
+// ══ STATE ══
+let G=1000,spinning=false,luckyLeft=0,jackpot=50000;
+let bets={1:10,2:50,3:1000},b9=50;
+let owned={gold:false,vip:false,bj:false,rl:false,bg1:false,bg2:false};
+let hist=[],totalProfit=0,bigWin=0,plays=0;
+let lastClick=0;
+function ac(){const n=Date.now();if(n-lastClick<200)return false;lastClick=n;return true;}
+
+// ══ SLOT SYMBOLS ══
+const S1=['7️⃣','🍒','🍋','⭐','🔔','💎','🍀','🎯'];
+const S2=['💛','⭐','🔔','👑','🍀','🌟','💰','🔱'];
+const S3=['💎','👑','🌟','💰','🔥','⚡','🎯','💠'];
+const M1={'7️⃣':15,'🍒':5,'🍋':3,'⭐':8,'🔔':6,'💎':12,'🍀':9,'🎯':10};
+const M2={'💛':12,'⭐':9,'🔔':7,'👑':25,'🍀':14,'🌟':12,'💰':18,'🔱':22};
+const M3={'💎':40,'👑':60,'🌟':30,'💰':45,'🔥':25,'⚡':28,'🎯':22,'💠':55};
+const M9={'7️⃣':20,'🍒':6,'🍋':4,'⭐':10,'🔔':7,'💎':16,'🍀':11,'🎯':13,'👑':20,'🌟':15};
+
+// ── SPIN: 3-match 28%, 2-match 38%, miss 34% ──
+function genSpin(syms){
+  const r=Math.random();
+  if(r<0.28){const s=syms[~~(Math.random()*syms.length)];return[s,s,s];}
+  if(r<0.66){
+    const s=syms[~~(Math.random()*syms.length)];
+    let o;do{o=syms[~~(Math.random()*syms.length)];}while(o===s);
+    const p=~~(Math.random()*3);
+    return p===0?[s,s,o]:p===1?[s,o,s]:[o,s,s];
+  }
+  let a,b2,c;
+  a=syms[~~(Math.random()*syms.length)];
+  do{b2=syms[~~(Math.random()*syms.length)];}while(b2===a);
+  do{c=syms[~~(Math.random()*syms.length)];}while(c===a||c===b2);
+  return[a,b2,c];
+}
+
+function setBet(m,v,el){if(!ac())return;bets[m]=v;el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');document.getElementById('bd'+m).textContent=v.toLocaleString();sfx.click();}
+function setB9(v,el){if(!ac())return;b9=v;el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');document.getElementById('bd9').textContent=v;sfx.click();}
+
+function doSpin(m){
+  if(!ac()||spinning)return;
+  const b=bets[m];if(G<b){showR(m,'잔액 부족!','l');sfx.lose();return;}
+  spinning=true;G-=b;plays++;upd();
+  document.getElementById('spn'+m).disabled=true;
+  document.getElementById('pl'+m).classList.remove('show');
+  for(let i=0;i<3;i++){const r=document.getElementById('r'+m+'_'+i);r.classList.remove('win-reel');r.classList.add('spinning');}
+  const syms=m===1?S1:m===2?S2:S3,mul=m===1?M1:m===2?M2:M3;
+  const res=genSpin(syms);
+  if(m===3&&Math.random()<0.008)res[0]=res[1]=res[2]='💠';
+  sfx.spin();
+  const tick=setInterval(()=>{for(let i=0;i<3;i++){const r=document.getElementById('r'+m+'_'+i);if(r.classList.contains('spinning'))r.textContent=syms[~~(Math.random()*syms.length)];}sfx.tick();},85);
+  [370,720,1070].forEach((d,i)=>setTimeout(()=>{
+    const r=document.getElementById('r'+m+'_'+i);r.classList.remove('spinning');r.textContent=res[i];sfx.click();
+    if(i===2){clearInterval(tick);setTimeout(()=>{spinning=false;document.getElementById('spn'+m).disabled=false;evalSpin(m,res,mul,b);},180);}
+  },d));
+}
+function evalSpin(m,res,mul,b){
+  const[a,x,c]=res;let win=0,msg='',cls='l',hl=[];
+  const isJP=m===3&&a==='💠'&&x==='💠'&&c==='💠';
+  if(isJP){win=jackpot;jackpot=50000;msg='🎉 JACKPOT! +'+win.toLocaleString()+' G';cls='jp';hl=[0,1,2];sfx.jp();if(document.getElementById('jpAmt'))document.getElementById('jpAmt').textContent=jackpot.toLocaleString();}
+  else if(a===x&&x===c){const mu=mul[a]||5,bo=luckyLeft>0?2:1;win=b*mu*bo;msg='★ 3개 일치 ['+a+'] +'+win.toLocaleString()+' G'+(bo>1?' ×LUCKY':'');cls='bw';hl=[0,1,2];sfx.big();if(luckyLeft>0){luckyLeft--;upd();}}
+  else if(a===x||x===c||a===c){win=Math.floor(b*1.5);msg='2개 일치! +'+win.toLocaleString()+' G';cls='w';sfx.win();hl=a===x?[0,1]:x===c?[1,2]:[0,2];}
+  else{msg='미스 — -'+b.toLocaleString()+' G';sfx.lose();}
+  if(m===3&&!isJP&&win===0){jackpot+=~~(b*0.05);if(document.getElementById('jpAmt'))document.getElementById('jpAmt').textContent=jackpot.toLocaleString();}
+  G+=win;totalProfit+=win-b;if(win>bigWin)bigWin=win;
+  hl.forEach(i=>document.getElementById('r'+m+'_'+i).classList.add('win-reel'));
+  if(hl.length)document.getElementById('pl'+m).classList.add('show');
+  upd();showR(m,msg,cls);addH((m===1?'Classic':m===2?'Gold':'VIP')+'슬롯',win?win:-b,win>0);saveGame();
+}
+function showR(m,t,c){const e=document.getElementById('res'+m);e.textContent=t;e.className='rbanner '+c;}
+
+function doSpin9(){
+  if(!ac()||spinning)return;
+  if(G<b9){document.getElementById('res9').textContent='잔액 부족!';sfx.lose();return;}
+  spinning=true;G-=b9;plays++;upd();
+  document.getElementById('spn9').disabled=true;
+  const syms=S1;
+  const res=[];for(let i=0;i<9;i++)res.push(syms[~~(Math.random()*syms.length)]);
+  for(let i=0;i<9;i++){const r=document.getElementById('r9_'+i);r.classList.remove('win-reel');r.classList.add('spinning');}
+  sfx.spin();
+  const tick=setInterval(()=>{for(let i=0;i<9;i++){const r=document.getElementById('r9_'+i);if(r.classList.contains('spinning'))r.textContent=syms[~~(Math.random()*syms.length)];}sfx.tick();},80);
+  [0,1,2].forEach(col=>setTimeout(()=>{
+    for(let row=0;row<3;row++){const idx=col*3+row,r=document.getElementById('r9_'+idx);r.classList.remove('spinning');r.textContent=res[idx];sfx.click();}
+    if(col===2){clearInterval(tick);setTimeout(()=>{spinning=false;document.getElementById('spn9').disabled=false;eval9(res);},180);}
+  },(col+1)*420));
+}
+function eval9(res){
+  const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  let wins=0,wc=new Set();
+  lines.forEach(([a,b2,c])=>{
+    if(res[a]===res[b2]&&res[b2]===res[c]){
+      const w=b9*(M9[res[a]]||5);G+=w;wins+=w;[a,b2,c].forEach(i=>{wc.add(i);document.getElementById('r9_'+i).classList.add('win-reel');});
+    }
+  });
+  totalProfit+=wins-b9;if(wins>bigWin)bigWin=wins;
+  const msg=wins>0?wc.size/3+'라인! +'+wins.toLocaleString()+' G':'미스 -'+b9+' G',cls=wins>0?'bw':'l';
+  if(wins>0)sfx.big();else sfx.lose();
+  upd();const e=document.getElementById('res9');e.textContent=msg;e.className='rbanner '+cls;
+  addH('9칸슬롯',wins?wins:-b9,wins>0);saveGame();
+}
+
+// ══ COIN — fixed H/T display ══
+let coinBusy=false;
+function playCoin(pick){
+  if(!ac()||coinBusy)return;
+  const b=parseInt(document.getElementById('coinBet').value)||100;
+  if(G<b){document.getElementById('coinRes').innerHTML='<span class="l">잔액 부족!</span>';return;}
+  coinBusy=true;
+  document.getElementById('coinBtnH').disabled=true;
+  document.getElementById('coinBtnT').disabled=true;
+  G-=b;plays++;totalProfit-=b;upd();
+  const cv=document.getElementById('coinCanvas'),ctx=cv.getContext('2d');
+  cv.width=300;cv.height=120;
+  const result=Math.random()<0.5?'h':'t';
+  // Pre-determine final face label
+  const finalLabel=result==='h'?'H':'T';
+  const finalColor=result==='h'?'#f0d060':'#aaaaff';
+  let f=0;const total=60;
+  function frame(){
+    f++;ctx.clearRect(0,0,300,120);
+    // arc path: coin goes up then comes down
+    const progress=f/total;
+    const cx=150;
+    const cy=60-Math.sin(progress*Math.PI)*50;// parabolic arc
+    // squish X to simulate flip rotation — slow flip, only 2 full rotations
+    const flipPhase=(f/total);// 0→1 over entire animation
+    const scaleX=Math.abs(Math.cos(flipPhase*Math.PI*2));// 2 full flips total
+    ctx.save();ctx.translate(cx,cy);ctx.scale(Math.max(0.05,scaleX),1);
+    // coin body
+    const gr=ctx.createRadialGradient(-8,-8,4,0,0,32);
+    gr.addColorStop(0,'#f5e060');gr.addColorStop(.6,'#e8a020');gr.addColorStop(1,'#8b6914');
+    ctx.beginPath();ctx.arc(0,0,32,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
+    ctx.strokeStyle='rgba(255,200,60,.5)';ctx.lineWidth=2;ctx.stroke();
+    // face label — show H or T alternating, final frame shows result
+    ctx.fillStyle='rgba(0,0,0,.75)';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    if(scaleX>0.15){
+      const label=f>=total?finalLabel:(~~(f/7)%2===0?'H':'T');
+      ctx.fillStyle=f>=total?finalColor:'rgba(0,0,0,.75)';
+      ctx.fillText(label,0,0);
+    }
+    ctx.restore();
+    // shadow
+    ctx.save();ctx.translate(cx,105);ctx.scale(1,.25);ctx.beginPath();ctx.arc(0,0,32*Math.max(0.05,scaleX),0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,.3)';ctx.fill();ctx.restore();
+    sfx.roll();
+    if(f<total)requestAnimationFrame(frame);
+    else{
+      coinBusy=false;
+      document.getElementById('coinBtnH').disabled=false;
+      document.getElementById('coinBtnT').disabled=false;
+      const face=result==='h'?'앞면 (H)':'뒷면 (T)',won=result===pick;
+      if(won){const w=~~(b*1.9);G+=w;totalProfit+=w;if(w>bigWin)bigWin=w;addH('동전',w,true);sfx.win();document.getElementById('coinRes').innerHTML=`<span class="w">🪙 ${face} — 승리! +${w.toLocaleString()} G</span>`;}
+      else{addH('동전',-b,false);sfx.lose();document.getElementById('coinRes').innerHTML=`<span class="l">🪙 ${face} — 패배 -${b.toLocaleString()} G</span>`;}
+      upd();saveGame();
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+// ══ DICE — fixed dot rendering ══
+let diceBusy=false;
+function drawDiceFace(ctx,val,cx,cy,size){
+  // background
+  const gr=ctx.createLinearGradient(cx-size,cy-size,cx+size,cy+size);
+  gr.addColorStop(0,'#f8f4ee');gr.addColorStop(1,'#ddd8cc');
+  ctx.beginPath();ctx.roundRect(cx-size,cy-size,size*2,size*2,size*0.2);ctx.fillStyle=gr;ctx.fill();ctx.strokeStyle='#bbb';ctx.lineWidth=1.5;ctx.stroke();
+  // dot positions (relative -1 to 1 within size)
+  const dotSets={
+    1:[[0,0]],
+    2:[[-0.45,-0.45],[0.45,0.45]],
+    3:[[-0.45,-0.45],[0,0],[0.45,0.45]],
+    4:[[-0.45,-0.45],[0.45,-0.45],[-0.45,0.45],[0.45,0.45]],
+    5:[[-0.45,-0.45],[0.45,-0.45],[0,0],[-0.45,0.45],[0.45,0.45]],
+    6:[[-0.45,-0.45],[0.45,-0.45],[-0.45,0],[0.45,0],[-0.45,0.45],[0.45,0.45]]
+  };
+  const dots=dotSets[val]||[];
+  const dotR=size*0.12;
+  dots.forEach(([dx,dy])=>{
+    ctx.beginPath();ctx.arc(cx+dx*size*1.1,cy+dy*size*1.1,dotR,0,Math.PI*2);
+    ctx.fillStyle='#1a1a2a';ctx.fill();
+  });
+}
+function playDice(pick){
+  if(!ac()||diceBusy)return;
+  const b=parseInt(document.getElementById('diceBet').value)||100;
+  if(G<b){document.getElementById('diceRes').innerHTML='<span class="l">잔액 부족!</span>';return;}
+  diceBusy=true;
+  document.getElementById('diceH').disabled=true;
+  document.getElementById('diceL').disabled=true;
+  G-=b;plays++;totalProfit-=b;upd();
+  const cv=document.getElementById('diceCanvas'),ctx=cv.getContext('2d');
+  cv.width=300;cv.height=140;
+  const finalD=Math.floor(Math.random()*6)+1;
+  let f=0;const total=55;
+  function frame(){
+    f++;ctx.clearRect(0,0,300,140);
+    const progress=f/total;
+    const eased=progress<1?1-Math.pow(1-progress,2):1;
+    // dice travels arc
+    const cx=70+eased*160;// moves right
+    const cy=70-Math.sin(progress*Math.PI)*40;
+    const angle=f<total?(f/total)*Math.PI*5:0;
+    const size=38;
+    const showVal=f>=total?finalD:Math.floor(Math.random()*6)+1;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(angle);
+    drawDiceFace(ctx,showVal,0,0,size);
+    ctx.restore();
+    // shadow
+    ctx.save();ctx.translate(cx,120);ctx.scale(1,.3);ctx.beginPath();ctx.arc(0,0,size*0.8,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,.25)';ctx.fill();ctx.restore();
+    sfx.roll();
+    if(f<total)requestAnimationFrame(frame);
+    else{
+      // draw final clear face
+      ctx.clearRect(0,0,300,140);
+      drawDiceFace(ctx,finalD,150,65,42);
+      // label
+      ctx.fillStyle='#888';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(['⚀','⚁','⚂','⚃','⚄','⚅'][finalD-1]+' '+finalD,150,120);
+      diceBusy=false;
+      document.getElementById('diceH').disabled=false;
+      document.getElementById('diceL').disabled=false;
+      const won=(pick==='h'&&finalD>=4)||(pick==='l'&&finalD<=3);
+      if(won){const w=~~(b*1.8);G+=w;totalProfit+=w;if(w>bigWin)bigWin=w;addH('주사위',w,true);sfx.win();document.getElementById('diceRes').innerHTML=`<span class="w">🎲 ${finalD} — 승리! +${w.toLocaleString()} G</span>`;}
+      else{addH('주사위',-b,false);sfx.lose();document.getElementById('diceRes').innerHTML=`<span class="l">🎲 ${finalD} — 패배 -${b.toLocaleString()} G</span>`;}
+      upd();saveGame();
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+// ══ PLINKO — more low slots ══
+// Slots: 0.2× 0.5× 1× 1.5× 3× 10× 3× 1.5× 1× 0.5× 0.2×  (11 slots)
+const PM=[0.2,0.5,1,1.5,3,10,3,1.5,1,0.5,0.2];
+let plinkoRunning=false;
+function drawPlinkoBoard(){
+  const cv=document.getElementById('plinkoCanvas');if(!cv)return null;
+  const ctx=cv.getContext('2d'),W=300,H=320;
+  ctx.fillStyle='#0a0a14';ctx.fillRect(0,0,W,H);
+  // pegs: 8 rows
+  const rows=8,pegGap=26;
+  const pegRows=[];
+  for(let r=0;r<rows;r++){
+    const cnt=r+3,sx=(W-(cnt-1)*pegGap)/2;
+    for(let c=0;c<cnt;c++){
+      const px=sx+c*pegGap,py=44+r*pegGap;
+      pegRows.push({x:px,y:py});
+      const g=ctx.createRadialGradient(px-1,py-1,1,px,py,5);
+      g.addColorStop(0,'#d4a840');g.addColorStop(1,'#8b6914');
+      ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    }
+  }
+  // buckets
+  const bW=W/PM.length;
+  PM.forEach((m,i)=>{
+    const x=i*bW;
+    const col=m>=5?'#ff4757':m>=2?'#e8a020':m>=1?'#3ddc84':'#4e8ef7';
+    ctx.fillStyle=col+'22';ctx.fillRect(x+1,H-40,bW-2,39);
+    ctx.strokeStyle=col;ctx.lineWidth=1;ctx.strokeRect(x+1,H-40,bW-2,39);
+    ctx.fillStyle=col;ctx.font=`bold ${bW>28?10:8}px sans-serif`;ctx.textAlign='center';
+    ctx.fillText(m+'×',x+bW/2,H-14);
+  });
+  return{ctx,W,H,pegRows};
+}
+function dropPlinko(){
+  if(!ac()||plinkoRunning)return;
+  const b=parseInt(document.getElementById('plinkoBet').value)||200;
+  if(G<b){document.getElementById('plinkoRes').innerHTML='<span class="l">잔액 부족!</span>';return;}
+  G-=b;plays++;totalProfit-=b;upd();plinkoRunning=true;
+  document.getElementById('plinkoBtn').disabled=true;
+  const board=drawPlinkoBoard();if(!board)return;
+  const{ctx,W,H,pegRows}=board;
+  let bx=W/2+(Math.random()-.5)*6,by=14,vx=(Math.random()-.5)*1.2,vy=0;
+  const ballR=7,pegR=5;
+  function step(){
+    vy+=0.38;bx+=vx;by+=vy;vx*=0.998;
+    pegRows.forEach(p=>{const dx=bx-p.x,dy=by-p.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<pegR+ballR){const ang=Math.atan2(dy,dx),sp=Math.sqrt(vx*vx+vy*vy)*.68;vx=Math.cos(ang)*sp+(Math.random()-.5)*.35;vy=Math.abs(Math.sin(ang)*sp);sfx.tick();}});
+    if(bx<ballR){bx=ballR;vx=Math.abs(vx)*.7;}
+    if(bx>W-ballR){bx=W-ballR;vx=-Math.abs(vx)*.7;}
+    drawPlinkoBoard();
+    const g2=ctx.createRadialGradient(bx-2,by-2,1,bx,by,ballR);
+    g2.addColorStop(0,'#ff9090');g2.addColorStop(1,'#cc0000');
+    ctx.beginPath();ctx.arc(bx,by,ballR,0,Math.PI*2);ctx.fillStyle=g2;ctx.fill();
+    ctx.strokeStyle='#ff4757';ctx.lineWidth=1.5;ctx.stroke();
+    if(by<H-40)requestAnimationFrame(step);
+    else{
+      const bW=W/PM.length,idx=Math.min(PM.length-1,~~(bx/bW)),mult=PM[idx];
+      const win=~~(b*mult);G+=win;totalProfit+=win-b;if(win>bigWin)bigWin=win;
+      const gained=win-b;
+      if(mult>=3)sfx.big();else if(mult>=1)sfx.win();else sfx.lose();
+      addH('플링코',gained>=0?win:-b,gained>=0);
+      const sign=gained>=0?'+':'';
+      document.getElementById('plinkoRes').innerHTML=`<span class="${mult>=3?'bw':mult>=1?'w':'l'}">${mult}× — ${sign}${gained.toLocaleString()} G</span>`;
+      upd();saveGame();plinkoRunning=false;document.getElementById('plinkoBtn').disabled=false;
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+// ══ SHELL GAME — no overlap fix ══
+// Fixed pixel positions so cups never overlap
+const CUP_PX=[18, 114, 210]; // left px for each slot (cup width=72, container~300px)
+let shellBall=-1,shellDone=true,shellBusy=false;
+// cupSlot[i] = which position slot (0,1,2) cup DOM id i is currently at
+let cupSlot=[0,1,2];
+
+function setCupPos(cupId,slot,animate){
+  const el=document.getElementById('cup'+cupId);
+  if(!animate)el.style.transition='none';
+  else el.style.transition='left .5s cubic-bezier(.4,0,.2,1)';
+  el.style.left=CUP_PX[slot]+'px';
+}
+function setCupLift(cupId,lifted){
+  const el=document.getElementById('cup'+cupId);
+  el.style.transform=lifted?'translateY(-70px)':'translateY(0px)';
+}
+
+function initShell(){
+  if(shellBusy)return;
+  shellBusy=true;shellDone=false;
+  shellBall=~~(Math.random()*3);
+  cupSlot=[0,1,2];
+  // reset positions instantly
+  [0,1,2].forEach(i=>{setCupPos(i,i,false);setCupLift(i,false);document.getElementById('ball'+i).style.display='none';document.getElementById('sb'+i).disabled=true;});
+  document.getElementById('shellRes').textContent='공 위치를 확인하세요...';
+  // show ball
+  document.getElementById('ball'+shellBall).style.display='block';
+  // lift cup over ball
+  setTimeout(()=>{
+    setCupLift(shellBall,true);
+    setTimeout(()=>{
+      document.getElementById('ball'+shellBall).style.display='none';
+      setCupLift(shellBall,false);
+      setTimeout(()=>shuffleShell(),500);
+    },1100);
+  },300);
+}
+
+function shuffleShell(){
+  document.getElementById('shellRes').textContent='섞는 중...';
+  const totalRounds=7+~~(Math.random()*4);let done=0;
+  // swap two random different slots
+  function doSwap(){
+    if(done>=totalRounds){
+      setTimeout(()=>{
+        [0,1,2].forEach(i=>document.getElementById('sb'+i).disabled=false);
+        document.getElementById('shellRes').textContent='공이 숨겨진 컵을 고르세요!';
+        shellBusy=false;
+      },350);return;
+    }
+    // pick two different positions
+    const posA=~~(Math.random()*3);let posB;do{posB=~~(Math.random()*3);}while(posB===posA);
+    // find which cup is at posA and posB
+    const cA=cupSlot.indexOf(posA),cB=cupSlot.indexOf(posB);
+    // swap slots
+    cupSlot[cA]=posB;cupSlot[cB]=posA;
+    setCupPos(cA,posB,true);setCupPos(cB,posA,true);
+    sfx.click();done++;setTimeout(doSwap,520);
+  }
+  doSwap();
+}
+
+function pickShell(btn){
+  // btn 0,1,2 maps directly to cup DOM id (since we track cupSlot)
+  // The player clicks button btn meaning they pick the cup with id=btn
+  if(shellDone||shellBusy)return;if(!ac())return;
+  const b=parseInt(document.getElementById('shellBet').value)||300;
+  if(G<b){document.getElementById('shellRes').innerHTML='<span class="l">잔액 부족!</span>';return;}
+  [0,1,2].forEach(i=>document.getElementById('sb'+i).disabled=true);
+  shellDone=true;G-=b;plays++;totalProfit-=b;
+  // lift chosen cup
+  setCupLift(btn,true);
+  setTimeout(()=>{
+    // lift all cups
+    [0,1,2].forEach(i=>setCupLift(i,true));
+    // show ball under the correct cup
+    document.getElementById('ball'+shellBall).style.display='block';
+    const won=btn===shellBall;
+    setTimeout(()=>{
+      if(won){const w=b*3;G+=w;totalProfit+=w;if(w>bigWin)bigWin=w;addH('야바위',w,true);sfx.big();document.getElementById('shellRes').innerHTML=`<span class="bw">정답! 🎉 +${w.toLocaleString()} G</span>`;}
+      else{addH('야바위',-b,false);sfx.lose();document.getElementById('shellRes').innerHTML=`<span class="l">틀렸습니다 -${b.toLocaleString()} G</span>`;}
+      upd();saveGame();
+      setTimeout(()=>{[0,1,2].forEach(i=>{setCupLift(i,false);document.getElementById('ball'+i).style.display='none';});setTimeout(initShell,600);},2000);
+    },500);
+  },500);
+}
+
+// ══ BLACKJACK AI — realistic personalities ══
+let bjDeck=[],bjP=[],bjD=[],bjAI=[],bjBusy=false;
+const RANKS=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+const SUITS=['♠','♥','♦','♣'];const RS=['♥','♦'];
+const CV={A:11,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,J:10,Q:10,K:10};
+
+// AI personalities: name, hit threshold (hits below this), catchphrases
+const AI_CHARS=[
+  {name:'🤖 Alex',threshold:17,msgs:{think:['...계산중','확률 분석','최적해 탐색'],hit:['히트'],stand:['스탠드','최적 결정'],bust:['버스트...오류'],bj:['블랙잭! 완벽한 핸드']}},
+  {name:'🦊 Fox',threshold:14,msgs:{think:['음...','흠...','잠깐만'],hit:['한 장 더!','가즈아!','와일드!'],stand:['여기서 멈춰','괜찮아'],bust:['ㅠㅠ...','왜 이래'],bj:['블랙잭!!! 🦊']}},
+  {name:'😎 Max',threshold:16,msgs:{think:['쿨하게...','별거 아냐','여유롭게'],hit:['한 장','무조건 더'],stand:['완벽해','이거면 충분'],bust:['...재수없네'],bj:['블랙잭~ 역시 나야']}},
+  {name:'🎩 Ace',threshold:18,msgs:{think:['신중하게...','생각중...','판단중...'],hit:['조심스럽게 한 장'],stand:['여기다! 스탠드'],bust:['이럴수가...'],bj:['블랙잭! 오늘 내 날이야']}}
+];
+
+function mkDeck(){const d=[];SUITS.forEach(s=>RANKS.forEach(r=>d.push({r,s})));for(let i=d.length-1;i>0;i--){const j=~~(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}return d;}
+function bjSc(h){let s=0,a=0;h.forEach(c=>{s+=CV[c.r];if(c.r==='A')a++;});while(s>21&&a-->0)s-=10;return s;}
+function cEl(c,hid){const e=document.createElement('div');e.className='bjcard'+(hid?' hid':'')+((!hid&&RS.includes(c.s))?' red':'');if(!hid)e.textContent=c.r+c.s;return e;}
+function aiCardEl(c,hid){const e=document.createElement('div');e.className='aic'+(hid?' hid':'')+((!hid&&RS.includes(c.s))?' red':'');if(!hid)e.textContent=c.r+c.s;return e;}
+
+function renderBJ(showD){
+  const pc=document.getElementById('bjPC'),dc=document.getElementById('bjDC');pc.innerHTML='';dc.innerHTML='';
+  bjP.forEach(c=>pc.appendChild(cEl(c,false)));bjD.forEach((c,i)=>dc.appendChild(cEl(c,!showD&&i===1)));
+  document.getElementById('bjPS').textContent='합계: '+bjSc(bjP);
+  document.getElementById('bjDS').textContent=showD?'합계: '+bjSc(bjD):'?';
+}
+function setAiMsg(i,msg){const e=document.getElementById('aimsg'+i);if(e)e.textContent='"'+msg+'"';}
+function setAiClass(i,cls){const e=document.getElementById('aip'+i);if(e){e.className='aip';if(cls)e.classList.add(cls);}}
+function renderAICards(i){
+  const e=document.getElementById('aicrds'+i);if(!e)return;e.innerHTML='';
+  bjAI[i].hand.forEach(c=>e.appendChild(aiCardEl(c,false)));
+  const sc=bjSc(bjAI[i].hand);const e2=document.getElementById('aisc'+i);if(e2)e2.textContent='합계: '+sc;
+}
+function buildAIGrid(){
+  const g=document.getElementById('aiGrid');g.innerHTML='';
+  bjAI.forEach((ai,i)=>{
+    const d=document.createElement('div');d.className='aip';d.id='aip'+i;
+    d.innerHTML=`<div class="ainame">${AI_CHARS[i].name}</div><div class="aimsg" id="aimsg${i}">대기중...</div><div class="aicrow" id="aicrds${i}"></div><div class="aisc" id="aisc${i}"></div>`;
+    g.appendChild(d);
+  });
+}
+
+function bjMsg2(m){document.getElementById('bjMsg').textContent=m;}
+function bjReset2(){document.getElementById('bjDC').innerHTML='';document.getElementById('bjPC').innerHTML='';document.getElementById('bjDS').textContent='';document.getElementById('bjPS').textContent='';document.getElementById('bjRes').textContent='딜 버튼을 눌러 시작하세요';document.getElementById('aiGrid').innerHTML='';bjMsg2('베팅 후 딜 버튼을 누르세요');}
+const dl=ms=>new Promise(r=>setTimeout(r,ms));
+function rndMsg(arr){return arr[~~(Math.random()*arr.length)];}
+
+async function bjDeal(){
+  if(bjBusy)return;const b=parseInt(document.getElementById('bjBet').value)||100000;
+  if(G<b){document.getElementById('bjRes').innerHTML='<span class="l">잔액 부족!</span>';return;}
+  bjBusy=true;G-=b;plays++;upd();
+  bjDeck=mkDeck();bjP=[];bjD=[];bjAI=AI_CHARS.map(ch=>({hand:[],stood:false,bust:false,char:ch}));
+  document.getElementById('bjDeal').disabled=true;document.getElementById('bjHit').disabled=true;document.getElementById('bjStand').disabled=true;
+  buildAIGrid();
+  bjMsg2('카드를 나눠드립니다...');
+  for(let r=0;r<2;r++){
+    bjP.push(bjDeck.pop());renderBJ(false);sfx.card();
+    for(let i=0;i<bjAI.length;i++){bjAI[i].hand.push(bjDeck.pop());renderAICards(i);}
+    bjD.push(bjDeck.pop());renderBJ(false);sfx.card();
+    await dl(320);
+  }
+  bjAI.forEach((ai,i)=>{setAiMsg(i,rndMsg(ai.char.msgs.think));setAiClass(i,'thinking');});
+  if(bjSc(bjP)===21){bjMsg2('블랙잭!');await bjStandLogic(b,true);return;}
+  bjMsg2('딜러: "패를 확인하세요."');document.getElementById('bjHit').disabled=false;document.getElementById('bjStand').disabled=false;bjBusy=false;
+}
+function bjHit(){if(bjBusy)return;bjBusy=true;bjP.push(bjDeck.pop());renderBJ(false);sfx.card();bjMsg2('히트!');
+  if(bjSc(bjP)>21){document.getElementById('bjHit').disabled=true;document.getElementById('bjStand').disabled=true;renderBJ(true);
+    const b=parseInt(document.getElementById('bjBet').value)||100000;
+    totalProfit-=b;addH('블랙잭',-b,false);sfx.lose();document.getElementById('bjRes').innerHTML='<span class="l">버스트! 패배</span>';
+    document.getElementById('bjDeal').disabled=false;upd();saveGame();bjBusy=false;
+  }else bjBusy=false;
+}
+function bjStand(){if(bjBusy)return;bjBusy=true;document.getElementById('bjHit').disabled=true;document.getElementById('bjStand').disabled=true;bjStandLogic(parseInt(document.getElementById('bjBet').value)||100000,false);}
+
+async function bjStandLogic(b,nat){
+  renderBJ(true);bjMsg2('딜러가 패를 공개합니다...');await dl(600);
+  // each AI plays with personality
+  for(let i=0;i<bjAI.length;i++){
+    const ai=bjAI[i];
+    setAiClass(i,'thinking');
+    setAiMsg(i,rndMsg(ai.char.msgs.think));
+    await dl(600+~~(Math.random()*400));
+    while(bjSc(ai.hand)<ai.char.threshold&&bjSc(ai.hand)<=21){
+      setAiMsg(i,rndMsg(ai.char.msgs.hit));
+      await dl(500+~~(Math.random()*300));
+      ai.hand.push(bjDeck.pop());renderAICards(i);sfx.card();
+      setAiMsg(i,rndMsg(ai.char.msgs.think));
+      await dl(400);
+    }
+    if(bjSc(ai.hand)>21){ai.bust=true;setAiMsg(i,rndMsg(ai.char.msgs.bust));setAiClass(i,'bust');}
+    else if(bjSc(ai.hand)===21&&ai.hand.length===2){setAiMsg(i,rndMsg(ai.char.msgs.bj));setAiClass(i,'bjwin');}
+    else{ai.stood=true;setAiMsg(i,rndMsg(ai.char.msgs.stand));setAiClass(i,'stand');}
+    await dl(300);
+  }
+  // dealer draws
+  while(bjSc(bjD)<17){bjMsg2('딜러: "카드를 한 장 더..."');await dl(600);bjD.push(bjDeck.pop());sfx.card();renderBJ(true);await dl(280);}
+  const ps=bjSc(bjP),ds=bjSc(bjD);let win=0,msg='';
+  if(ps>21){totalProfit-=b;addH('블랙잭',-b,false);sfx.lose();bjMsg2('딜러: "버스트."');msg='<span class="l">버스트 -'+b.toLocaleString()+' G</span>';}
+  else if(ds>21){win=b*2;G+=win;totalProfit+=win-b;if(win>bigWin)bigWin=win;addH('블랙잭',win,true);sfx.big();bjMsg2('딜러: "딜러 버스트! 축하!"');msg='<span class="bw">딜러 버스트 승리! +'+win.toLocaleString()+' G</span>';}
+  else if(nat&&ps===21&&bjP.length===2){win=~~(b*2.5);G+=win;totalProfit+=win-b;if(win>bigWin)bigWin=win;addH('블랙잭',win,true);sfx.big();bjMsg2('딜러: "블랙잭!"');msg='<span class="bw">블랙잭! +'+win.toLocaleString()+' G</span>';}
+  else if(ps>ds){win=b*2;G+=win;totalProfit+=win-b;if(win>bigWin)bigWin=win;addH('블랙잭',win,true);sfx.win();bjMsg2('딜러: "이기셨군요."');msg='<span class="w">승리! +'+win.toLocaleString()+' G</span>';}
+  else if(ps===ds){G+=b;addH('블랙잭',0,true);sfx.click();bjMsg2('딜러: "동점."');msg='<span class="w">푸시 — 반환</span>';}
+  else{totalProfit-=b;addH('블랙잭',-b,false);sfx.lose();bjMsg2('딜러: "제가 이겼네요."');msg='<span class="l">패배 -'+b.toLocaleString()+' G</span>';}
+  await dl(400);document.getElementById('bjRes').innerHTML=msg;document.getElementById('bjDeal').disabled=false;upd();saveGame();bjBusy=false;
+}
+
+// ══ ROULETTE ══
+function drawWheel(ctx,ang){
+  const W=260,cx=130,cy=130,R=118,iR=46;
+  ctx.clearRect(0,0,W,W);
+  RL_SEQ.forEach((n,i)=>{
+    const s=ang+i*(Math.PI*2/37)-Math.PI/2,e2=s+Math.PI*2/37;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,s,e2);ctx.closePath();
+    ctx.fillStyle=n===0?'#1a6a1a':(RL_REDS.includes(n)?'#8a1a1a':'#181818');ctx.fill();
+    ctx.strokeStyle='#2a2a3a';ctx.lineWidth=.6;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(s+Math.PI/37);ctx.translate(R-15,0);ctx.rotate(Math.PI/2);
+    ctx.fillStyle='#eee';ctx.font='bold 7px sans-serif';ctx.textAlign='center';ctx.fillText(n,0,0);ctx.restore();
+  });
+  ctx.beginPath();ctx.arc(cx,cy,R+2,0,Math.PI*2);ctx.strokeStyle='#8b6914';ctx.lineWidth=4;ctx.stroke();
+  const g=ctx.createRadialGradient(cx,cy,4,cx,cy,iR);g.addColorStop(0,'#1a1a2a');g.addColorStop(1,'#0a0a14');
+  ctx.beginPath();ctx.arc(cx,cy,iR,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#8b6914';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy-R+3);ctx.lineTo(cx-8,cy-R-13);ctx.lineTo(cx+8,cy-R-13);ctx.closePath();ctx.fillStyle='#f0d060';ctx.fill();ctx.strokeStyle='#8b6914';ctx.lineWidth=1;ctx.stroke();
+}
+const RL_REDS=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+const RL_SEQ=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+let rlAngle=0,rlSpin=false;
+let rlSoundTimer=null;
+
+function rlBallSound(speed){
+  // speed 0-1: fast ticking when spinning, slows to clunks
+  try{
+    const a=gAC();if(!a)return;
+    const o=a.createOscillator(),g=a.createGain(),dist=a.createWaveShaper();
+    // create distortion curve for clicky sound
+    const curve=new Float32Array(256);
+    for(let i=0;i<256;i++){const x=i*2/256-1;curve[i]=x<0?-Math.pow(-x,.6):Math.pow(x,.6);}
+    dist.curve=curve;
+    o.connect(dist);dist.connect(g);g.connect(a.destination);
+    o.type='square';
+    // pitch rises with speed
+    const freq=200+speed*800;
+    o.frequency.setValueAtTime(freq,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(freq*.5,a.currentTime+.04);
+    g.gain.setValueAtTime(.18*speed,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.05);
+    o.start();o.stop(a.currentTime+.06);
+  }catch(e){}
+}
+function rlWheelCreak(){
+  try{
+    const a=gAC();if(!a)return;
+    const buf=a.createBuffer(1,a.sampleRate*.15,a.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.exp(-i/data.length*8)*.3;
+    const src=a.createBufferSource(),g=a.createGain();
+    src.buffer=buf;src.connect(g);g.connect(a.destination);
+    g.gain.setValueAtTime(.12,a.currentTime);
+    src.start();
+  }catch(e){}
+}
+
+function setRlBtns(disabled){['rbl0','rbl1','rbl2','rbl3','rbl4','rbl5'].forEach(id=>{const e=document.getElementById(id);if(e)e.disabled=disabled;});}
+
+function playRl(type,mult){
+  if(!ac()||rlSpin)return;
+  const b=parseInt(document.getElementById('rlBet').value)||500;
+  if(G<b){document.getElementById('rlRes').innerHTML='<span class="l">잔액 부족!</span>';return;}
+  G-=b;plays++;totalProfit-=b;upd();
+  setRlBtns(true);
+  document.getElementById('rlRes').textContent='🎡 회전 중...';
+  const finalN=~~(Math.random()*37);
+  const finalIdx=RL_SEQ.indexOf(finalN);
+  const finalAngle=-(finalIdx*(Math.PI*2/37))+Math.PI/2;
+  const targetAngle=rlAngle+Math.PI*10+(finalAngle-rlAngle%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
+  const cv=document.getElementById('rlCanvas');if(!cv){setRlBtns(false);return;}
+  const ctx=cv.getContext('2d');
+  rlSpin=true;
+  const t0=performance.now(),dur=5000;
+  const startAngle=rlAngle;
+  // schedule ball tick sounds — fast at start, slow at end
+  clearTimeout(rlSoundTimer);
+  let soundStep=0;
+  function scheduleTick(){
+    if(!rlSpin)return;
+    const elapsed=(performance.now()-t0)/dur;
+    if(elapsed>=1)return;
+    const speed=1-elapsed; // 1=fast, 0=stopped
+    rlBallSound(speed);
+    // interval: fast=40ms, slow=300ms
+    const interval=40+speed*0*260+Math.pow(1-speed,2)*320;
+    rlSoundTimer=setTimeout(scheduleTick,interval);
+  }
+  scheduleTick();
+  function fr(now){
+    const t=Math.min(1,(now-t0)/dur);
+    const ease=1-Math.pow(1-t,4);
+    rlAngle=startAngle+(targetAngle-startAngle)*ease;
+    drawWheel(ctx,rlAngle);
+    if(t<1){requestAnimationFrame(fr);}
+    else{
+      clearTimeout(rlSoundTimer);
+      // final clunk
+      rlWheelCreak();
+      rlAngle=targetAngle;drawWheel(ctx,rlAngle);rlSpin=false;
+      const isR=RL_REDS.includes(finalN),isO=finalN%2!==0&&finalN>0;
+      let won=false;
+      if(type==='red')won=isR&&finalN>0;else if(type==='black')won=!isR&&finalN>0;
+      else if(type==='odd')won=isO;else if(type==='even')won=!isO&&finalN>0;
+      else if(type==='low')won=finalN>=1&&finalN<=18;else if(type==='high')won=finalN>=19;
+      const col=finalN===0?'🟢':(RL_REDS.includes(finalN)?'🔴':'⚫');
+      if(won){const w=b*mult;G+=w;totalProfit+=w;if(w>bigWin)bigWin=w;addH('룰렛',w,true);sfx.win();document.getElementById('rlRes').innerHTML=`<span class="w">${col} ${finalN} 승리! +${w.toLocaleString()} G</span>`;}
+      else{addH('룰렛',-b,false);sfx.lose();document.getElementById('rlRes').innerHTML=`<span class="l">${col} ${finalN} 패배 -${b.toLocaleString()} G</span>`;}
+      upd();saveGame();setRlBtns(false);
+    }
+  }
+  requestAnimationFrame(fr);
+}
+
+// ══ YOUTUBE — open in new tab (iframe blocked by YouTube) ══
+function playYT(){
+  const url=document.getElementById('ytUrl').value.trim();
+  if(!url){toast('YouTube URL 입력');return;}
+  const m=url.match(/(?:youtu\.be\/|[?&]v=|\/v\/|\/embed\/)([a-zA-Z0-9_-]{11})/);
+  if(!m){toast('유효한 YouTube URL이 아닙니다');return;}
+  const vid=m[1];
+  // YouTube blocks iframe embedding on most pages — open in new tab
+  window.open('https://www.youtube.com/watch?v='+vid+'&autoplay=1','_blank');
+  document.getElementById('ytStatus').textContent='▶ 새 탭에서 재생 중: youtu.be/'+vid;
+  toast('새 탭에서 YouTube 재생 시작!');
+}
+function stopYT(){
+  document.getElementById('ytStatus').textContent='';
+  document.getElementById('ytFrame').style.display='none';
+  toast('재생 탭을 직접 닫아주세요');
+}
+
+// ══ SHOP ══
+function buyItem(id,price){
+  if(!ac())return;if(G<price){toast('잔액 부족!');return;}
+  if(owned[id]&&id!=='lucky'){toast('이미 보유중');return;}
+  G-=price;if(id!=='lucky')owned[id]=true;upd();sfx.buy();
+  const acts={
+    gold(){document.getElementById('goldMachine').style.display='block';document.getElementById('goldLocked').style.display='none';mOwned('si-gold','⭐','Gold Rush');},
+    vip(){document.getElementById('vipMachine').style.display='block';document.getElementById('vipLocked').style.display='none';mOwned('si-vip','💎','Diamond Elite');},
+    bj(){document.getElementById('bjCard').classList.remove('lc');mOwned('si-bj','🃏','블랙잭');},
+    rl(){document.getElementById('rlCard').classList.remove('lc');mOwned('si-rl','🎡','룰렛');},
+    lucky(){luckyLeft+=10;toast('Lucky Boost! 다음 10스핀 배당 2배');upd();},
+    bg1(){mOwned('si-bg1','🌃','Vegas Night');updateHouse();toast('Vegas Night 배경 구매!');},
+    bg2(){mOwned('si-bg2','🎆','Galaxy');updateHouse();toast('Galaxy 배경 구매!');}
+  };
+  if(acts[id])acts[id]();
+  if(id!=='lucky'&&id!=='bg1'&&id!=='bg2')toast('구매 완료!');
+  addH('상점',-price,false);saveGame();
+}
+function mOwned(id,ico,nm){const e=document.getElementById(id);if(!e)return;e.innerHTML=`<div class="sico">${ico}</div><div class="sname">${nm}</div><div class="owned-tag">✓ 보유</div>`;e.classList.add('owned');}
+
+// ══ RANKING ══
+function buildRanking(){
+  const u=gu(),data=[];
+  Object.keys(u).forEach(uid=>{if(uid==='admin')return;const s=gs(uid)||{G:1000,totalProfit:0};data.push({uid,nick:u[uid].nick,G:s.G??1000,profit:s.totalProfit??0});});
+  const byG=[...data].sort((a,b)=>b.G-a.G).slice(0,10);
+  const byP=[...data].sort((a,b)=>b.profit-a.profit).slice(0,10);
+  renderRL2('rankG',byG,'G');renderRL2('rankP',byP,'profit');
+  const myR=byG.findIndex(d=>d.uid===cUid);
+  const rb=document.getElementById('rankBadge');rb.innerHTML='';
+  if(myR===0)rb.innerHTML='<span class="rbadge rb-gold">🥇1위</span>';
+  else if(myR===1)rb.innerHTML='<span class="rbadge rb-silver">🥈2위</span>';
+  else if(myR===2)rb.innerHTML='<span class="rbadge rb-bronze">🥉3위</span>';
+}
+function renderRL2(id,arr,field){
+  const e=document.getElementById(id);
+  if(!arr.length){e.innerHTML='<div class="rempty">데이터 없음</div>';return;}
+  const md=['🥇','🥈','🥉'];
+  e.innerHTML=arr.map((d,i)=>{
+    const v=field==='G'?d.G:d.profit,isMe=d.uid===cUid;
+    return`<div class="rrow${isMe?' me-row':''}"><div class="rnum">${i<3?md[i]:i+1}</div><div class="rnick">${d.nick}${isMe?' <span style="font-size:9px;color:var(--gb)">[나]</span>':''}</div><div class="rval">${v>=0?'+':''}${v.toLocaleString()} G</div></div>`;
+  }).join('');
+}
+
+// ══ HOUSE ══
+function updateHouse(){
+  const ha=document.getElementById('houseArea');
+  let bg,nm,sb;
+  // Base tier by G
+  if(G>=1000000){bg='linear-gradient(135deg,#3a1a00,#6a3a00,#3a1a00)';nm='🏰 다이아몬드 궁전';sb='최상위 VIP';}
+  else if(G>=200000){bg='linear-gradient(135deg,#0f0830,#2a1080,#0f0830)';nm='🏛 황금 타워';sb='VIP 프리미엄';}
+  else if(G>=50000){bg='linear-gradient(135deg,#080820,#18184a,#080820)';nm='🏢 럭셔리 펜트하우스';sb='상위 등급';}
+  else if(G>=10000){bg='linear-gradient(135deg,#061206,#102810,#061206)';nm='🏠 모던 하우스';sb='중급 등급';}
+  else if(G>=3000){bg='linear-gradient(135deg,#100808,#221010,#100808)';nm='🏡 아파트';sb='초급 등급';}
+  else{bg='linear-gradient(135deg,#0e0e0e,#1a1a1a,#0e0e0e)';nm='🏚 판잣집';sb='G를 모아 업그레이드!';}
+  // Override with purchased backgrounds (these take priority)
+  if(owned.bg2){bg='linear-gradient(135deg,#020212 0%,#0a0a40 40%,#06062a 60%,#020212 100%)';}
+  else if(owned.bg1){bg='linear-gradient(135deg,#0a0420 0%,#1a0850 40%,#280a70 60%,#0a0420 100%)';}
+  ha.style.background=bg;
+  document.getElementById('houseName').textContent=nm;
+  document.getElementById('houseSub').textContent=sb;
+}
+
+// ══ ADMIN — input validation fixed ══
+function adminGive(){
+  const uid=document.getElementById('adU').value.trim(),amt=parseInt(document.getElementById('adA').value)||0;
+  if(!uid){toast('아이디 입력');return;}if(amt<=0){toast('수량 입력');return;}
+  const u=gu();if(!u[uid]){toast('없는 아이디');return;}
+  let s=gs(uid)||{G:1000,totalProfit:0,bigWin:0,plays:0,hist:[],luckyLeft:0,jackpot:50000,owned:{},bets:{1:10,2:50,3:1000},b9:50};
+  s.G+=amt;ps2(uid,s);if(uid===cUid){G+=amt;upd();}aal(uid+' +'+amt+'G');toast('+'+amt+'G 지급');refAlog();
+}
+function adminReset(){
+  const uid=document.getElementById('adRU').value.trim();
+  if(!uid){toast('아이디 입력');return;}
+  const u=gu();if(!u[uid]){toast('없는 아이디');return;}
+  let s=gs(uid)||{};s.G=1000;s.totalProfit=0;s.bigWin=0;s.plays=0;s.hist=[];s.luckyLeft=0;
+  ps2(uid,s);
+  if(uid===cUid){G=1000;totalProfit=0;bigWin=0;plays=0;hist=[];luckyLeft=0;upd();renderH();}
+  aal(uid+' 자산초기화');toast(uid+' 초기화 완료');refAlog();
+}
+function adminNick(){
+  const uid=document.getElementById('adNU').value.trim(),nn=document.getElementById('adNN').value.trim();
+  if(!uid){toast('아이디 입력');return;}if(!nn||nn.length<2||nn.length>10){toast('닉네임: 2-10자');return;}
+  const u=gu();if(!u[uid]){toast('없는 아이디');return;}
+  u[uid].nick=nn;su(u);
+  if(uid===cUid){cUser.nick=nn;document.getElementById('dispNick').textContent=nn;}
+  aal(uid+' 닉네임→'+nn);toast('닉네임 변경 완료');refAlog();
+  document.getElementById('adNU').value='';document.getElementById('adNN').value='';
+}
+function adminPwd(){
+  const uid=document.getElementById('adPU').value.trim(),pp=document.getElementById('adPP').value;
+  if(!uid){toast('아이디 입력');return;}if(pp.length<4){toast('비밀번호: 4자 이상');return;}
+  const u=gu();if(!u[uid]){toast('없는 아이디');return;}
+  u[uid].pw=pp;su(u);aal(uid+' 비번변경');toast('비밀번호 변경 완료');refAlog();
+  document.getElementById('adPU').value='';document.getElementById('adPP').value='';
+}
+function refAlog(){const l=gal();document.getElementById('adminLog').innerHTML=l.length?l.join('<br>'):'로그 없음';}
+
+// ══ RESET — direct localStorage write ══
+function doReset(){
+  if(!confirm('자산을 1,000G로 초기화합니다.\n구매 아이템은 유지됩니다.\n\n진행할까요?'))return;
+  G=1000; totalProfit=0; bigWin=0; plays=0; hist=[]; luckyLeft=0;
+  // Write directly to avoid any stale closure issues
+  try{
+    const existing=gs(cUid)||{};
+    existing.G=1000; existing.totalProfit=0; existing.bigWin=0;
+    existing.plays=0; existing.hist=[]; existing.luckyLeft=0;
+    localStorage.setItem(SP+cUid, JSON.stringify(existing));
+  }catch(e){}
+  upd(); renderH();
+  toast('✅ 자산 1,000G 초기화 완료');
+  sfx.buy();
+}
+
+// ══ SAVE/LOAD ══
+function saveGame(){
+  if(!cUid)return;
+  const data={G,luckyLeft,jackpot,bets,b9,owned,hist,totalProfit,bigWin,plays};
+  ps2(cUid,data);
+}
+function loadGame(){
+  const s=gs(cUid);
+  if(s){
+    G=typeof s.G==='number'?s.G:1000;
+    luckyLeft=s.luckyLeft??0;jackpot=s.jackpot??50000;
+    bets=s.bets??{1:10,2:50,3:1000};b9=s.b9??50;
+    owned=s.owned??{};hist=s.hist??[];
+    totalProfit=s.totalProfit??0;bigWin=s.bigWin??0;plays=s.plays??0;
+  }else{
+    G=1000;luckyLeft=0;jackpot=50000;bets={1:10,2:50,3:1000};b9=50;
+    owned={};hist=[];totalProfit=0;bigWin=0;plays=0;
+  }
+}
+
+// ══ GAME FLOW ══
+function startGame(){
+  loadGame();
+  document.getElementById('authScreen').style.display='none';
+  const ga=document.getElementById('gameApp');ga.style.display='flex';
+  document.getElementById('dispNick').textContent=cUser.nick;
+  if(cUser.isAdmin)document.getElementById('adminBtn').style.display='block';
+  applyOwned();renderH();upd();updateHouse();buildRanking();
+  setTimeout(()=>{
+    drawPlinkoBoard();
+    const rv=document.getElementById('rlCanvas');if(rv)drawWheel(rv.getContext('2d'),0);
+  },100);
+  clearInterval(window._as);window._as=setInterval(saveGame,20000);
+}
+function applyOwned(){
+  if(owned.gold){document.getElementById('goldMachine').style.display='block';document.getElementById('goldLocked').style.display='none';mOwned('si-gold','⭐','Gold Rush');}
+  if(owned.vip){document.getElementById('vipMachine').style.display='block';document.getElementById('vipLocked').style.display='none';mOwned('si-vip','💎','Diamond Elite');}
+  if(owned.bj){document.getElementById('bjCard').classList.remove('lc');mOwned('si-bj','🃏','블랙잭');}
+  if(owned.rl){document.getElementById('rlCard').classList.remove('lc');mOwned('si-rl','🎡','룰렛');}
+  if(owned.bg1)mOwned('si-bg1','🌃','Vegas Night');
+  if(owned.bg2)mOwned('si-bg2','🎆','Galaxy');
+}
+
+// ══ UI ══
+function upd(){
+  const fmt=n=>(n??0).toLocaleString();
+  document.getElementById('walletAmt').textContent=fmt(G);
+  document.getElementById('stMoney').textContent=fmt(G);
+  document.getElementById('stPlays').textContent=plays;
+  document.getElementById('stProfit').textContent=(totalProfit>=0?'+':'')+fmt(totalProfit);
+  document.getElementById('stBig').textContent=fmt(bigWin);
+  if(luckyLeft>0){document.getElementById('luckyBar').classList.add('show');document.getElementById('luckyCount').textContent=luckyLeft;}
+  else document.getElementById('luckyBar').classList.remove('show');
+  const jp=document.getElementById('jpAmt');if(jp)jp.textContent=fmt(jackpot);
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('on');btn.classList.add('on');
+  if(id==='gamble')closeGame();
+  if(id==='rank')buildRanking();
+  if(id==='house')updateHouse();
+  if(id==='admin')refAlog();
+  sfx.click();saveGame();
+}
+
+const ALL_PANELS=['coinPanel','dicePanel','plinkoPanel','shellPanel','bjPanel','rlPanel'];
+function hideAllPanels(){ALL_PANELS.forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});}
+function closeGame(){
+  document.getElementById('tableView').style.display='block';
+  document.getElementById('gameView').style.display='none';
+  hideAllPanels();
+  coinBusy=false;diceBusy=false;plinkoRunning=false;rlSpin=false;
+}
+function openGame(type){
+  if(type==='bj'&&!owned.bj){toast('블랙잭 5,000G 해금 필요');return;}
+  if(type==='bj2'&&!owned.bj){toast('블랙잭 5,000G 해금 필요');return;}
+  if(type==='rl'&&!owned.rl){toast('룰렛 5,000G 해금 필요');return;}
+  document.getElementById('tableView').style.display='none';
+  document.getElementById('gameView').style.display='block';
+  hideAllPanels();// ← always hide all first
+  const titles={coin:'🪙 동전 던지기',dice:'🎲 주사위 하이로',plinko:'🎯 플링코',shell:'🎪 야바위',bj:'🃏 블랙잭 AI',rl:'🎡 룰렛'};
+  document.getElementById('ptitle').textContent=titles[type]||'';
+  sfx.click();
+  if(type==='bj'){document.getElementById('bjPanel').style.display='block';bjReset2();return;}
+  if(type==='rl'){
+    document.getElementById('rlPanel').style.display='block';
+    setTimeout(()=>{const rv=document.getElementById('rlCanvas');if(rv)drawWheel(rv.getContext('2d'),rlAngle);},60);
+    return;
+  }
+  if(type==='plinko'){document.getElementById('plinkoPanel').style.display='block';setTimeout(drawPlinkoBoard,60);return;}
+  if(type==='shell'){document.getElementById('shellPanel').style.display='block';setTimeout(initShell,400);return;}
+  const panel=document.getElementById(type+'Panel');if(panel)panel.style.display='block';
+}
+function addH(type,amt,pos){hist.unshift({type,amt,pos});if(hist.length>60)hist.pop();renderH();}
+function renderH(){
+  const e=document.getElementById('histList');
+  if(!hist.length){e.innerHTML='<div class="hempty">기록 없음</div>';return;}
+  e.innerHTML=hist.map(h=>`<div class="hrow"><span class="htype">${h.type}</span><span class="hamt ${h.pos?'pos':'neg'}">${h.pos&&h.amt>0?'+':''}${Number(h.amt).toLocaleString()} G</span></div>`).join('');
+}
+document.addEventListener('contextmenu',e=>e.preventDefault());
+</script>
+</body>
+</html>
