@@ -1,0 +1,11 @@
+{
+  "ceo": "gemma2:latest",
+  "secretary": "gemma2:latest",
+  "youtube": "gemma2:latest",
+  "researcher": "gemma2:latest",
+  "business": "gemma2:latest",
+  "writer": "gemma2:latest",
+  "editor": "gemma2:latest",
+  "designer": "gemma2:latest",
+  "instagram": "gemma2:latest"
+}
